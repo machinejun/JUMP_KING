@@ -1,10 +1,10 @@
 class Student{
-<<<<<<< HEAD
+
 
  안녕하세요
-=======
+
 	String name;
 	String passWord;
-fsdfsdf
->>>>>>> 19ca77579ce5826976588e539918323d8d34800a
+dsdasdasd31qwedasdasdasxcas
+
 }
