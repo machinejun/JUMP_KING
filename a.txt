@@ -1,4 +1,4 @@
 class Student{
 
-
+ 안녕하세요
 }
