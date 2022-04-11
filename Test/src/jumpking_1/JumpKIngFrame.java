@@ -6,13 +6,15 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-public class BubbleFrame extends JFrame {
+public class JumpKIngFrame extends JFrame {
 
-	private JLabel backgroundMap;
+	private BackgroundMap backgroundMap;
 	private Player player;
 	
-	public BubbleFrame() {
+	public JumpKIngFrame() {
+		
 		initObject();
 		initSetting();
 		initListener();
@@ -22,20 +24,34 @@ public class BubbleFrame extends JFrame {
 	
 
 	private void initObject() {
-		backgroundMap = new JLabel(new ImageIcon("images/stage1.png"));
-		setContentPane(backgroundMap);
+		backgroundMap = new BackgroundMap();
 		player = new Player();
+		setContentPane(backgroundMap);
 		add(player);
 		
 	}
 
 	private void initSetting() {
-		setSize(1440,940);
-		setLayout(null); // absoulte (좌표값으로 자유롭게 그림을 그릴 수 있다.)
-
-		setLocationRelativeTo(null); // JFrame 가운데 배치 하기
+		setVisible(true);
+		setSize(1480,1000); 
+		setLocationRelativeTo(null); 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+	}
+	
+	public void changeStage(int stage) {
+		if(stage == 0) {
+			backgroundMap.setBufferedImage(backgroundMap.getBufferedImageOP());	
+		}else if(stage == 1) {
+			backgroundMap.setBufferedImage(backgroundMap.getBufferedImageOP());
+		}else if(stage == 2) {
+			backgroundMap.setBufferedImage(backgroundMap.getBufferedImageOP());
+		}else if(stage == 3) {
+			backgroundMap.setBufferedImage(backgroundMap.getBufferedImageOP());
+		}else if(stage == 4) {
+			backgroundMap.setBufferedImage(backgroundMap.getBufferedImageOP());
+		}
+		repaint();
 	}
 
 	private void initListener() {
@@ -88,14 +104,6 @@ public class BubbleFrame extends JFrame {
 						 player.jump();
 					}
 					break;
-//				case KeyEvent.VK_UP:
-//					player.setUp(false);
-//					break;
-//				case KeyEvent.VK_DOWN:
-//					player.setDown(false);
-//					break;
-//				default:
-//					break;
 				}
 			}
 
@@ -103,7 +111,7 @@ public class BubbleFrame extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new BubbleFrame();
+		new JumpKIngFrame();
 	}
 
 }

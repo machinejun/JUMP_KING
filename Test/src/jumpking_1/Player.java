@@ -58,7 +58,7 @@ public class Player extends JLabel implements Moveable {
 	}		
 	private void initsettting() {
 		x = 70;
-		y = 790;
+		y = 820;
 
 		left = false;
 		right = false;
@@ -91,7 +91,7 @@ public class Player extends JLabel implements Moveable {
 					x = x - SPEDD;
 					setLocation(x, y);
 					try {
-						Thread.sleep(10);
+						Thread.sleep(15);
 					} catch (Exception e) {
 						e.printStackTrace();
 
@@ -135,7 +135,7 @@ public class Player extends JLabel implements Moveable {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				for (int i = 0; i < (130 / JUMP); i++) {
+				for (int i = 0; i < (800 / JUMP); i++) {
 					y = y - JUMP;
 					setLocation(x, y);
 					try {
@@ -146,7 +146,7 @@ public class Player extends JLabel implements Moveable {
 
 				}
 				jump = false;
-				drop();
+				//drop();
 			}
 		}).start();
 	}

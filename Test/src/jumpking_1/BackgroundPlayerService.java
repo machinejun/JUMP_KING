@@ -31,18 +31,21 @@ public class BackgroundPlayerService implements Runnable {
         while (true) {
 
             // 자바의 좌표 기준은 왼쪽 위, 아이콘 크기 50, 50
-            Color leftFootColor = new Color(image.getRGB(player.getX() - 20, player.getY() + 45)); //
-            Color rightFootColor = new Color(image.getRGB(player.getX() + 50 , player.getY() + 45));
+        	Color leftFootColor = new Color(image.getRGB(player.getX(), player.getY() -25)); //
+            Color rightFootColor = new Color(image.getRGB(player.getX() + 15 , player.getY() -25));
             Color leftTopColor = new Color(image.getRGB(player.getX() -20, player.getY() + 5));
             Color rightTopColor = new Color(image.getRGB(player.getX() + 50 , player.getY() + 5));
 
-            int bottomColor = image.getRGB(player.getX() + 10, player.getY() + 50 + 5) // -1
-                    + image.getRGB(player.getX() + 50 - 10, player.getY() + 50 + 5); // -1
-            int topColor = image.getRGB(player.getX() + 10, player.getY() + 5) // -1
-                    + image.getRGB(player.getX() + 50 - 10, player.getY() + 5); // -1
+            int bottomColor = image.getRGB(player.getX() + 10, player.getY() + 10 ) // -1
+                    + image.getRGB(player.getX() + 50 - 10, player.getY() + 10); // -1
+            int topColor = image.getRGB(player.getX() + 10, player.getY() ) // -1
+                    + image.getRGB(player.getX() + 50 - 10, player.getY()); // -1
             
        
-
+            if((player.getY()) < 50) {
+            	
+            }
+            	
          // -2 가 아니라면 !!!. 바닥 충돌 확인
             if (bottomColor != -2) {
                 player.setDrop(false);
@@ -56,7 +59,7 @@ public class BackgroundPlayerService implements Runnable {
                 player.setJump(false);
             }
             if (leftFootColor.getRed() == 255 && leftFootColor.getGreen() == 0 && leftFootColor.getBlue() == 0) {
-                player.setLeftWallcrash(true);
+            	player.setLeftWallcrash(true);
                 player.setLeft(false);
                 System.out.println("왼쪽바닥 부딪힘");
             } else if (rightFootColor.getRed() == 255 && rightFootColor.getGreen() == 0
