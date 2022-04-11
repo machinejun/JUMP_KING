@@ -1,5 +1,10 @@
 class Student{
+
+
+ 안녕하세요
+
 	String name;
 	String passWord;
-fsdfsdf
+dsdasdasd31qwedasdasdasxcas
+
 }
