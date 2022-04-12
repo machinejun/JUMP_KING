@@ -1,5 +1,6 @@
 package jumpking_1;
 
+import java.awt.BorderLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -9,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class JumpKIngFrame extends JFrame {
-	private BackgroundMap2 backgroundMap;
+	private BackgroundMap backgroundMap;
 	private Player player;
 	
 	public JumpKIngFrame() {
@@ -17,14 +18,15 @@ public class JumpKIngFrame extends JFrame {
 		initObject();
 		initSetting();
 		initListener();
-		setVisible(true);
+		new Thread(new PlayerStageObserver(player, backgroundMap)).start();
+
 	}
 
 
 	private void initObject() {
-		backgroundMap = new BackgroundMap2();
-		player = new Player(backgroundMap);
-		backgroundMap.setLocation(0, 0);
+		backgroundMap = new BackgroundMap();
+		player = new Player();
+		setLayout(new BorderLayout());
 		setContentPane(backgroundMap);
 		backgroundMap.add(player);
 		
@@ -34,8 +36,8 @@ public class JumpKIngFrame extends JFrame {
 
 	private void initSetting() {
 		setVisible(true);
-		setSize(1600, 1500); 
-		
+		setSize(1440, 940); 
+		setResizable(false);
 		setLocationRelativeTo(null); 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

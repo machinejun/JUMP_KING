@@ -9,9 +9,6 @@ import lombok.Setter;
 
 @Data
 public class Player extends JLabel implements Moveable {
-	// 수정할것
-	BackgroundMap2 backgroundMap;
-	
 	// 위치 상태
 	private int x;
 	private int y;
@@ -39,15 +36,15 @@ public class Player extends JLabel implements Moveable {
 	private ImageIcon jumpLeftmotion;
 	private ImageIcon chargeJump;
 
-	public Player(BackgroundMap2 backgroundMap) {
-		this.backgroundMap = backgroundMap;
+	public Player() {
 		initObject();
 		initsettting();
 		initBackgroundPlayerService();
 	}
 
 	private void initBackgroundPlayerService() {
-		new Thread(new BackgroundPlayerService(this, backgroundMap)).start();
+		new Thread(new BackgroundPlayerService(this)).start();
+		
 
 	}
 
