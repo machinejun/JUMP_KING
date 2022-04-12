@@ -9,8 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class JumpKIngFrame extends JFrame {
-
-	private BackgroundMap backgroundMap;
+	private BackgroundMap2 backgroundMap;
 	private Player player;
 	
 	public JumpKIngFrame() {
@@ -21,38 +20,27 @@ public class JumpKIngFrame extends JFrame {
 		setVisible(true);
 	}
 
-	
 
 	private void initObject() {
-		backgroundMap = new BackgroundMap();
-		player = new Player();
+		backgroundMap = new BackgroundMap2();
+		player = new Player(backgroundMap);
+		backgroundMap.setLocation(0, 0);
 		setContentPane(backgroundMap);
-		add(player);
+		backgroundMap.add(player);
+		
+		
 		
 	}
 
 	private void initSetting() {
 		setVisible(true);
-		setSize(1480,1000); 
+		setSize(1600, 1500); 
+		
 		setLocationRelativeTo(null); 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
 	
-	public void changeStage(int stage) {
-		if(stage == 0) {
-			backgroundMap.setBufferedImage(backgroundMap.getBufferedImageOP());	
-		}else if(stage == 1) {
-			backgroundMap.setBufferedImage(backgroundMap.getBufferedImageOP());
-		}else if(stage == 2) {
-			backgroundMap.setBufferedImage(backgroundMap.getBufferedImageOP());
-		}else if(stage == 3) {
-			backgroundMap.setBufferedImage(backgroundMap.getBufferedImageOP());
-		}else if(stage == 4) {
-			backgroundMap.setBufferedImage(backgroundMap.getBufferedImageOP());
-		}
-		repaint();
-	}
 
 	private void initListener() {
 		addKeyListener(new KeyAdapter() {
@@ -76,6 +64,7 @@ public class JumpKIngFrame extends JFrame {
 			    
 					break;
 				case KeyEvent.VK_SPACE:
+					System.out.println("점프");
 					player.getChargeJump();
 					   
 					System.out.println(player.getPlayerWay());
@@ -100,6 +89,7 @@ public class JumpKIngFrame extends JFrame {
 					player.setRight(false);
 					break; 
 				case KeyEvent.VK_SPACE:
+					System.out.println("점프 발동");
 					if(!player.isJump() && !player.isDrop()) {
 						 player.jump();
 					}

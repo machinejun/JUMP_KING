@@ -9,7 +9,9 @@ import lombok.Setter;
 
 @Data
 public class Player extends JLabel implements Moveable {
-
+	// 수정할것
+	BackgroundMap2 backgroundMap;
+	
 	// 위치 상태
 	private int x;
 	private int y;
@@ -30,8 +32,6 @@ public class Player extends JLabel implements Moveable {
 	// 벽에 충돌한 상태
 	private boolean LeftWallcrash;
 	private boolean RightWallcrash;
-	private boolean LeftTopcrash;
-	private boolean RightTopcrash;
 
 	private ImageIcon playerR;
 	private ImageIcon playerL;
@@ -39,14 +39,15 @@ public class Player extends JLabel implements Moveable {
 	private ImageIcon jumpLeftmotion;
 	private ImageIcon chargeJump;
 
-	public Player() {
+	public Player(BackgroundMap2 backgroundMap) {
+		this.backgroundMap = backgroundMap;
 		initObject();
 		initsettting();
 		initBackgroundPlayerService();
 	}
 
 	private void initBackgroundPlayerService() {
-		new Thread(new BackgroundPlayerService(this)).start();
+		new Thread(new BackgroundPlayerService(this, backgroundMap)).start();
 
 	}
 
@@ -57,8 +58,8 @@ public class Player extends JLabel implements Moveable {
 		chargeJump = new ImageIcon("images/chjm.png");
 	}		
 	private void initsettting() {
-		x = 70;
-		y = 820;
+		x = 300;
+		y = 750;
 
 		left = false;
 		right = false;
@@ -67,8 +68,6 @@ public class Player extends JLabel implements Moveable {
 
 		LeftWallcrash = false;
 		RightWallcrash = false;
-		LeftTopcrash = false;
-		RightTopcrash = false;
 
 		playerWay = PlayerWay.RIGHT;
 
@@ -91,7 +90,7 @@ public class Player extends JLabel implements Moveable {
 					x = x - SPEDD;
 					setLocation(x, y);
 					try {
-						Thread.sleep(15);
+						Thread.sleep(8);
 					} catch (Exception e) {
 						e.printStackTrace();
 
@@ -118,7 +117,7 @@ public class Player extends JLabel implements Moveable {
 					x = x + SPEDD;
 					setLocation(x, y);
 					try {
-						Thread.sleep(10);
+						Thread.sleep(8);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -135,7 +134,7 @@ public class Player extends JLabel implements Moveable {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				for (int i = 0; i < (800 / JUMP); i++) {
+				for (int i = 0; i < (150 / JUMP); i++) {
 					y = y - JUMP;
 					setLocation(x, y);
 					try {
@@ -146,7 +145,7 @@ public class Player extends JLabel implements Moveable {
 
 				}
 				jump = false;
-				//drop();
+				drop();
 			}
 		}).start();
 	}
