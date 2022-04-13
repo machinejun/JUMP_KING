@@ -83,16 +83,17 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (left) {
-					setIcon(playerWalkingL);
+					setIcon(playerL);
 					x = x - SPEDD;
-					setLocation(x, y);
+					
 					try {
-						Thread.sleep(8);
+						Thread.sleep(10);
 					} catch (Exception e) {
 						e.printStackTrace();
 
 					}
-					setIcon(playerL);
+					setLocation(x, y);
+					//setIcon(playerL);
 				}
 
 			}
@@ -112,12 +113,13 @@ public class Player extends JLabel implements Moveable {
 				while (right) {
 					setIcon(playerR);
 					x = x + SPEDD;
-					setLocation(x, y);
+					
 					try {
-						Thread.sleep(8);
+						Thread.sleep(10);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
+					setLocation(x, y);
 				}
 			}
 		}).start();
