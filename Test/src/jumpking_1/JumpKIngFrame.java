@@ -12,9 +12,9 @@ import javax.swing.JPanel;
 public class JumpKIngFrame extends JFrame {
 	private BackgroundMap backgroundMap;
 	private Player player;
-	
+
 	public JumpKIngFrame() {
-		
+
 		initObject();
 		initSetting();
 		initListener();
@@ -22,27 +22,23 @@ public class JumpKIngFrame extends JFrame {
 
 	}
 
-
 	private void initObject() {
 		backgroundMap = new BackgroundMap();
 		player = new Player(backgroundMap);
 		setLayout(null);
 		setContentPane(backgroundMap);
 		backgroundMap.add(player);
-		
-		
-		
+
 	}
 
 	private void initSetting() {
 		setVisible(true);
-		setSize(1400, 1040); 
+		setSize(1400, 1040);
 		setResizable(false);
-		setLocationRelativeTo(null); 
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
-	
 
 	private void initListener() {
 		addKeyListener(new KeyAdapter() {
@@ -52,32 +48,35 @@ public class JumpKIngFrame extends JFrame {
 
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_LEFT:
-					if(!player.isLeft() && !player.isLeftWallcrash()){ 
+					if (!player.isLeft() && !player.isLeftWallcrash()) {
 						player.left();
 					}
-					
+
 					break;
 				case KeyEvent.VK_RIGHT:
-					if(!player.isRight() && !player.isRightWallcrash()){
+					if (!player.isRight() && !player.isRightWallcrash()) {
 						player.right();
 					}
 					break;
 				case KeyEvent.VK_UP:
-			    
+
 					break;
 				case KeyEvent.VK_SPACE:
+//					if (player.isLeft() && player.isLeftjumpWallcrash()) {
+//						player.jumpL();
+//					}
 					System.out.println("점프");
 					player.getChargeJump();
-					   
+
 					System.out.println(player.getPlayerWay());
-					if(PlayerWay.LEFT == player.getPlayerWay()) {
+					if (PlayerWay.LEFT == player.getPlayerWay()) {
 						System.out.println("왼쪽 방향을 보고 있습니다.");
 					} else {
 						System.out.println("오른쪽 방향을 보고 있습니다.");
 					}
-				break;
+					break;
 				}
-				
+
 			} // end of keyPressd
 				// 키보드 화살표 해제 이벤트 처리
 
@@ -89,14 +88,17 @@ public class JumpKIngFrame extends JFrame {
 					break;
 				case KeyEvent.VK_RIGHT:
 					player.setRight(false);
-					break; 
+					break;
 				case KeyEvent.VK_SPACE:
-					if(!player.isJump() && !player.isDrop()) {
-						 player.jump();
+					if (!player.isJump() && !player.isDrop()) {
+						player.jump();
 					}
 					break;
+
 				}
 			}
+
+			
 
 		});
 	}

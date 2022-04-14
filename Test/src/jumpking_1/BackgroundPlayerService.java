@@ -47,6 +47,7 @@ public class BackgroundPlayerService implements Runnable {
         	Color leftCenterColor;
 			Color leftTopColor; 
 			Color CenterFootColor ;
+			Color CenterTopColor ;
 			Color rightFootColor ;
 			Color rightCenterColor;
 			Color rightTopColor ;
@@ -58,6 +59,7 @@ public class BackgroundPlayerService implements Runnable {
             	leftCenterColor = new Color(image.getRGB(player.getX() + 0, player.getY() + 35)); //
     			leftTopColor = new Color(image.getRGB(player.getX() + 0, player.getY()));
     			CenterFootColor = new Color(image.getRGB(player.getX() + 25, player.getY() + 40));
+    			CenterTopColor = new Color(image.getRGB(player.getX() + 25, player.getY()));
     			rightFootColor = new Color(image.getRGB(player.getX() + 25 + 25, player.getY() + 50));
     			rightCenterColor = new Color(image.getRGB(player.getX() + 25 + 25, player.getY() + 35));
     			rightTopColor = new Color(image.getRGB(player.getX() + 25 + 25, player.getY()));
@@ -71,6 +73,7 @@ public class BackgroundPlayerService implements Runnable {
 	        	leftCenterColor = new Color(image.getRGB(player.getX() + 0, player.getY() + 35)); //
 				leftTopColor = new Color(image.getRGB(player.getX() + 0, player.getY()));
 				CenterFootColor = new Color(image.getRGB(player.getX() + 25, player.getY() + 40));
+				CenterTopColor = new Color(image.getRGB(player.getX() + 25, player.getY()));
 				rightFootColor = new Color(image.getRGB(player.getX() + 25 + 25, player.getY() + 50));
 				rightCenterColor = new Color(image.getRGB(player.getX() + 25 + 25, player.getY() + 35));
 				rightTopColor = new Color(image.getRGB(player.getX() + 25 + 25, player.getY()));
@@ -82,15 +85,20 @@ public class BackgroundPlayerService implements Runnable {
             // 바닥 검사
             if (leftFootColor.getRGB() != Color.red.getRGB() && rightFootColor.getRGB() != Color.red.getRGB() && CenterFootColor.getRGB() != Color.red.getRGB()){
             	if (!(player.isJump()) && !(player.isDrop())) {
+            		//player.setStand(false);
                     player.drop();
                 }
             }else {
+            	//player.setStand(true);
             	player.setDrop(false);
             	
             }
             
-            // 왼쪽 충돌
-            if (leftCenterColor.getRGB() == Color.red.getRGB() || leftTopColor.getRGB() == Color.red.getRGB()) {
+            
+           
+            
+            // 바닥 벽 왼쪽 충돌
+            if (leftCenterColor.getRGB() == Color.red.getRGB() && leftFootColor.getRGB() == Color.red.getRGB()) {
 				player.setLeftWallcrash(true);
 				player.setLeft(false);
 				player.right();
@@ -102,11 +110,9 @@ public class BackgroundPlayerService implements Runnable {
 				}
 				player.setRight(false);
 
-				if (rightFootColor.getRGB() == Color.white.getRGB()) {
-					player.drop();
-				}
-			//오른쪽 충돌
-			} else if (rightCenterColor.getRGB() == Color.red.getRGB() || rightTopColor.getRGB() == Color.red.getRGB()) {
+			//바닥벽 오른쪽 충돌 
+			} else if (rightCenterColor.getRGB() == Color.red.getRGB() && rightFootColor.getRGB() == Color.red.getRGB() 
+							&& leftFootColor.getRGB() == Color.red.getRGB()) {
 				player.setRightWallcrash(true);
 				player.setRight(false);
 				player.left();
@@ -116,16 +122,22 @@ public class BackgroundPlayerService implements Runnable {
 					e.printStackTrace();
 				}
 				player.setLeft(false);
-
-				if (leftFootColor.getRGB() == Color.white.getRGB()) {
-					player.drop();
-				}
 				
-			} else {
+				
+	        } else {
 				player.setLeftWallcrash(false);
 				player.setRightWallcrash(false);
 				
 			}
+            
+            // 머리가 먼자 부딪힘
+			if (rightTopColor.getRGB() == Color.red.getRGB() && leftFootColor.getRGB() == Color.white.getRGB()) {
+				player.drop();
+			}
+			else if (leftTopColor.getRGB() == Color.red.getRGB() && rightFootColor.getRGB() == Color.white.getRGB()) {
+				player.drop();
+			}
+			
             
             
             try {
