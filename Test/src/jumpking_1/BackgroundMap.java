@@ -6,39 +6,32 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class BackgroundMap extends JPanel{
-
-	private BufferedImage ImageOP;
-	private BufferedImage Image1;
-	private BufferedImage Image2;
-	private BufferedImage Image3;
-	private BufferedImage ImageEd;
-	private BufferedImage Image;
+public class BackgroundMap extends JLabel{
+	private ImageIcon ImageOP;
+	private ImageIcon Image1;
+	private ImageIcon Image2;
+	private ImageIcon Image3;
+	private ImageIcon ImageEd;
+	private ImageIcon Image;
 	
 	private int stageNum = 1;
 	
 	
+	
 	public BackgroundMap() {
-		try {
-			//ImageOP = ImageIO.read(new File("images/stage1_1.png"));
-			Image1 = ImageIO.read(new File("images/stage1_1bg.png"));
-			Image2 = ImageIO.read(new File("images/stage1.png"));
-			//Image3 = ImageIO.read(new File("images/stage1_1.png"));
-			//ImageEd = ImageIO.read(new File("images/stage1_1.png"));	
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ImageOP = new ImageIcon("images/stage1.png");
+		Image1 = new ImageIcon("images/stage1.png");
+		Image2 = new ImageIcon("images/stage2.png");
+		Image3 = new ImageIcon("images/stage1.png");
+		ImageEd = new ImageIcon("images/stage1.png");
 		Image = Image1;
+		setIcon(Image);
 	}
 	
-	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		g.drawImage(Image, 0, 0, getWidth(), getHeight(), null);
-	}
 	
 	public void changeStage() {
 		if(stageNum == 0) {
@@ -52,7 +45,9 @@ public class BackgroundMap extends JPanel{
 		}else if(stageNum == 4) {
 			//Image = ImageEd;
 		}
-		repaint();
+		setIcon(Image);
+
+		
 	}
 
 	public int getStageNum() {

@@ -15,14 +15,23 @@ public class PlayerStageObserver implements Runnable{
 	public void run() {
 		
 		while(true) {
-			System.out.println(player.getY());
-			System.out.println("스테이지: " +backgroundMap.getStageNum());
-			if(player.getY() < 50 && backgroundMap.getStageNum() == 1) {
-				System.out.println("working");
-				player.setY(900);
+			if(player.getY() <= 50 && backgroundMap.getStageNum() == 1) {
+				
 	            backgroundMap.setStageNum(2);
 	            backgroundMap.changeStage();
+	            player.setY(910);
 	            
+			}else if(player.getY() >= 950 && backgroundMap.getStageNum() == 2) {
+				
+				backgroundMap.setStageNum(1);
+				backgroundMap.changeStage();
+				player.setY(60);
+			}
+			try {
+				Thread.sleep(8);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		

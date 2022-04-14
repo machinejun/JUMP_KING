@@ -10,73 +10,134 @@ import javax.swing.RepaintManager;
 // 메인 쓰레드는 바쁨 -> 키보드 이벤트 처리를 해야하기 때문
 // 백그라운드에서 계속 관찰
 public class BackgroundPlayerService implements Runnable {
-
+	private int stage;
 	private BufferedImage image;
+	private BufferedImage image1;
+	private BufferedImage image2;
+	private BufferedImage image3;
+	private BufferedImage image4;
 	private Player player;
+	private BackgroundMap backgroundMap;
 
-	public BackgroundPlayerService(Player player) {
+	public BackgroundPlayerService(Player player, BackgroundMap backgroundMap) {
 		this.player = player;
+		this.backgroundMap = backgroundMap;
 		try {
-			image = ImageIO.read(new File("images/stage1_1bg.png"));
+			image1 = ImageIO.read(new File("images/stage1bg.png"));	//1번맵
+			image2 = ImageIO.read(new File("images/stage2bg.png")); // 2번 맵
+			// image3 = ImageIO.read(new File("images/stage3bg.png")); // 3번맵
+			// image4 = ImageIO.read(new File("images/stage4bg.png")); // 4번맵
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		image = image1;
 	}
 
 	@Override
     public void run() {
 
         while (true) {
+        	if(backgroundMap.getStageNum() == 1) {
+        		image = image1;
+        	}else if(backgroundMap.getStageNum() == 2) {
+        		image = image2;
+        	}
+        	
+        	Color leftFootColor;
+        	Color leftCenterColor;
+			Color leftTopColor; 
+			Color CenterFootColor ;
+			Color rightFootColor ;
+			Color rightCenterColor;
+			Color rightTopColor ;
+        	
+        	
         	 // 자바의 좌표 기준은 왼쪽 위, 아이콘 크기 50, 50
-        	 Color leftFootColor = new Color(image.getRGB(player.getX() , player.getY() + 50)); //
-        	 Color leftTopColor = new Color(image.getRGB(player.getX() , player.getY()  ));
-             Color rightFootColor = new Color(image.getRGB(player.getX() + 25 , player.getY() + 50));
-             Color rightTopColor = new Color(image.getRGB(player.getX() + 25 , player.getY()  ));
+        	try {
+        		leftFootColor = new Color(image.getRGB(player.getX() + 0, player.getY() + 50 )); //
+            	leftCenterColor = new Color(image.getRGB(player.getX() + 0, player.getY() + 35)); //
+    			leftTopColor = new Color(image.getRGB(player.getX() + 0, player.getY()));
+    			CenterFootColor = new Color(image.getRGB(player.getX() + 25, player.getY() + 40));
+    			rightFootColor = new Color(image.getRGB(player.getX() + 25 + 25, player.getY() + 50));
+    			rightCenterColor = new Color(image.getRGB(player.getX() + 25 + 25, player.getY() + 35));
+    			rightTopColor = new Color(image.getRGB(player.getX() + 25 + 25, player.getY()));
+			} catch (ArrayIndexOutOfBoundsException e) {
+				try {
+					Thread.sleep(16);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+				leftFootColor = new Color(image.getRGB(player.getX() + 0, player.getY() + 50 )); //
+	        	leftCenterColor = new Color(image.getRGB(player.getX() + 0, player.getY() + 35)); //
+				leftTopColor = new Color(image.getRGB(player.getX() + 0, player.getY()));
+				CenterFootColor = new Color(image.getRGB(player.getX() + 25, player.getY() + 40));
+				rightFootColor = new Color(image.getRGB(player.getX() + 25 + 25, player.getY() + 50));
+				rightCenterColor = new Color(image.getRGB(player.getX() + 25 + 25, player.getY() + 35));
+				rightTopColor = new Color(image.getRGB(player.getX() + 25 + 25, player.getY()));
+			}
+        	
              
-             //System.out.println(leftFootColor);
+
              
-            
-            if (leftFootColor.getRGB() == Color.white.getRGB() && rightFootColor.getRGB() == Color.white.getRGB()){
+            // 바닥 검사
+            if (leftFootColor.getRGB() != Color.red.getRGB() && rightFootColor.getRGB() != Color.red.getRGB() && CenterFootColor.getRGB() != Color.red.getRGB()){
             	if (!(player.isJump()) && !(player.isDrop())) {
                     player.drop();
                 }
-            }else { 
-
+            }else {
             	player.setDrop(false);
-            }
-//            if (topColor != -2) {
-//                player.setJump(false);
-//            }
-            
-            
-            if (leftFootColor.getRGB() == Color.red.getRGB() && leftTopColor.getRGB() == Color.red.getRGB()) {
-                System.out.println(leftFootColor.getRed() + "/" + leftFootColor.getBlue());
-                System.out.println(leftTopColor.getRed() + "/" + leftTopColor.getBlue());
-            	player.setLeftWallcrash(true);
-                player.setLeft(false);
-
-            } else if (rightFootColor.getRGB() == Color.red.getRGB() && rightTopColor.getRGB() == Color.red.getRGB()) {
-                player.setRightWallcrash(true);
-                player.setRight(false);
-
-            }
-            else {
-                player.setLeftWallcrash(false);
-                player.setRightWallcrash(false);
-
+            	
             }
             
+            // 왼쪽 충돌
+            if (leftCenterColor.getRGB() == Color.red.getRGB() || leftTopColor.getRGB() == Color.red.getRGB()) {
+				player.setLeftWallcrash(true);
+				player.setLeft(false);
+				player.right();
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				player.setRight(false);
+
+				if (rightFootColor.getRGB() == Color.white.getRGB()) {
+					player.drop();
+				}
+			//오른쪽 충돌
+			} else if (rightCenterColor.getRGB() == Color.red.getRGB() || rightTopColor.getRGB() == Color.red.getRGB()) {
+				player.setRightWallcrash(true);
+				player.setRight(false);
+				player.left();
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				player.setLeft(false);
+
+				if (leftFootColor.getRGB() == Color.white.getRGB()) {
+					player.drop();
+				}
+				
+			} else {
+				player.setLeftWallcrash(false);
+				player.setRightWallcrash(false);
+				
+			}
             
             
             try {
-				Thread.sleep(3);
+				Thread.sleep(2);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
             
 			
 		}
+        
+        
 
-	}
+	}// end of run
 }

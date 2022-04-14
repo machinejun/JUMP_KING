@@ -25,8 +25,8 @@ public class JumpKIngFrame extends JFrame {
 
 	private void initObject() {
 		backgroundMap = new BackgroundMap();
-		player = new Player();
-		setLayout(new BorderLayout());
+		player = new Player(backgroundMap);
+		setLayout(null);
 		setContentPane(backgroundMap);
 		backgroundMap.add(player);
 		
@@ -36,7 +36,7 @@ public class JumpKIngFrame extends JFrame {
 
 	private void initSetting() {
 		setVisible(true);
-		setSize(1440, 940); 
+		setSize(1400, 1040); 
 		setResizable(false);
 		setLocationRelativeTo(null); 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -91,7 +91,6 @@ public class JumpKIngFrame extends JFrame {
 					player.setRight(false);
 					break; 
 				case KeyEvent.VK_SPACE:
-					System.out.println("점프 발동");
 					if(!player.isJump() && !player.isDrop()) {
 						 player.jump();
 					}
