@@ -48,13 +48,13 @@ public class JumpKIngFrame extends JFrame {
 
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_LEFT:
-					if (!player.isLeft() && !player.isLeftWallcrash()) {
+					if (!player.isLeft() && !player.isLeftWallcrash() && !player.isJump() && !player.isDrop()) {
 						player.left();
 					}
 
 					break;
 				case KeyEvent.VK_RIGHT:
-					if (!player.isRight() && !player.isRightWallcrash()) {
+					if (!player.isRight() && !player.isRightWallcrash() && !player.isJump() && !player.isDrop()) {
 						player.right();
 					}
 					break;
@@ -90,7 +90,7 @@ public class JumpKIngFrame extends JFrame {
 					player.setRight(false);
 					break;
 				case KeyEvent.VK_SPACE:
-					if (!player.isJump() && !player.isDrop()) {
+					if (!player.isJump() && !player.isDrop() && !player.isRight() && !player.isLeft()) {
 						player.jump();
 					}
 					break;

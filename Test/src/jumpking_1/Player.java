@@ -24,9 +24,10 @@ public class Player extends JLabel implements Moveable {
 	private boolean jump;
 	private boolean stand;
 	private boolean drop;
+	private int dropCount = 1;
 
 	// 플레이어 속도 상태
-	private final int SPEED = 2;
+	private final int SPEED = 1;
 	private final int DROPSPEED = 2;
 	private int JUMPPOWER; // Drop , jump 값은 변수선언
 	private int vector = 1;
@@ -73,7 +74,7 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	private void initsettting() {
-		x = 300;
+		x = 220;
 		y = 500;
 
 		left = false;
@@ -106,7 +107,7 @@ public class Player extends JLabel implements Moveable {
 				while (left) {
 					for (int i = 1; i < 4; i++) {
 						setIcon(playerL[i]);
-						x = x - SPEED / 2;
+						x = x - SPEED;
 						setLocation(x, y);
 						try {
 							Thread.sleep(3);
@@ -135,7 +136,7 @@ public class Player extends JLabel implements Moveable {
 				while (right) {
 					for (int i = 1; i < 4; i++) {
 						setIcon(playerR[i]);
-						x = x + SPEED / 2;
+						x = x + SPEED;
 						setLocation(x, y);
 						try {
 							Thread.sleep(3);
@@ -166,7 +167,7 @@ public class Player extends JLabel implements Moveable {
 						y = y - 4;
 						setLocation(x, y);
 						try {
-							Thread.sleep(20);
+							Thread.sleep(8);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -177,49 +178,54 @@ public class Player extends JLabel implements Moveable {
 				if (playerWay == PlayerWay.RIGHT) {
 					setIcon(jumpRightmotion[0]);
 					// x 120 y 240
-					for (int i = 0; i < 30; i++) {				
-						if (i / 10 == 0) {
-							x = x + (4);
-							y = y - 10;
-						} else if (i / 10 == 1) {
-							x = x + (4);
+					for (int i = 0; i < 50; i++) {
+						if (i / 10 < 2) {
+							x = x + 3;
 							y = y - 6;
-						} else if (i / 10 == 2) {
-							x = x + (4);
+						} else if (i / 10 < 4) {
+							x = x + 3;
 							y = y - 2;
+						} else{
+							x = x + 3;
+							y = y - 1;
 						}
 						setLocation(x, y);
 						try {
-							Thread.sleep(20);
+							Thread.sleep(9);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
-					}	
+					}
+					vector = 1;
 				}
 				
 				
 				if (playerWay == PlayerWay.LEFT) {
 					setIcon(jumpRightmotion[0]);
 					// x 120 y 240
-					for (int i = 0; i < 30; i++) {
-							if (i / 10 == 0) {
-								x = x - (4);
-								y = y - 10;
-							} else if (i / 10 == 1) {
-								x = x - (4);
-								y = y - 6;
-							} else if (i / 10 == 2) {
-								x = x - (4);
-								y = y - 2;
-							}
-							setLocation(x, y);
-							try {
-								Thread.sleep(10);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							}
+					for (int i = 0; i < 50; i++) {
+
+						if (i / 10 < 2) {
+							x = x - 3;
+							y = y - 6;
+						} else if (i / 10 < 4) {
+							x = x - 3;
+							y = y - 2;
+						} else{
+							x = x - 3;
+							y = y - 1;
 						}
+						setLocation(x, y);
+						try {
+							Thread.sleep(9);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+					vector = 1;
 				}
+				
+				
 				jump = false;
 				drop();
 			}
@@ -234,9 +240,7 @@ public class Player extends JLabel implements Moveable {
 
 	@Override
 	public void drop() {
-		if(drop == true) {
-			return;
-		}
+		
 		System.out.println("down");
 		drop = true;
 		JUMPPOWER = 2;
@@ -244,19 +248,22 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (drop) {
-					if (playerWay == PlayerWay.NULL) {
+					if (playerWay == PlayerWay.NULL || dropCount == 0) {
 						y = y + 4;
+						dropCount = 2;
 					} else if (playerWay == PlayerWay.RIGHT) {
-						x = x + 2;
-						y = y + 6;
+						x = x + 4;
+						y = y + 5;
+						dropCount--;
 					} else if (playerWay == PlayerWay.LEFT) {
-						x = x - 2;
-						y = y + 6;
+						x = x - 4;
+						y = y + 5;
+						dropCount--;
 					}
 
 					setLocation(x, y);
 					try {
-						Thread.sleep(10);
+						Thread.sleep(12);
 					} catch (InterruptedException e) {
 
 					}

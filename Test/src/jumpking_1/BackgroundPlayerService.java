@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+
 import javax.imageio.ImageIO;
 import javax.swing.RepaintManager;
 
@@ -55,101 +58,134 @@ public class BackgroundPlayerService implements Runnable {
         	
         	 // 자바의 좌표 기준은 왼쪽 위, 아이콘 크기 50, 50
         	try {
-        		leftFootColor = new Color(image.getRGB(player.getX() + 0, player.getY() + 50 )); //
-            	leftCenterColor = new Color(image.getRGB(player.getX() + 0, player.getY() + 35)); //
-    			leftTopColor = new Color(image.getRGB(player.getX() + 0, player.getY()));
-    			CenterFootColor = new Color(image.getRGB(player.getX() + 25, player.getY() + 40));
+        		leftFootColor = new Color(image.getRGB(player.getX() + 8, player.getY() + 52 )); //
+            	leftCenterColor = new Color(image.getRGB(player.getX() + 8, player.getY() + 26)); //
+    			leftTopColor = new Color(image.getRGB(player.getX() + 8, player.getY()));
+    			
+    			CenterFootColor = new Color(image.getRGB(player.getX() + 25, player.getY() + 52));
     			CenterTopColor = new Color(image.getRGB(player.getX() + 25, player.getY()));
-    			rightFootColor = new Color(image.getRGB(player.getX() + 25 + 25, player.getY() + 50));
-    			rightCenterColor = new Color(image.getRGB(player.getX() + 25 + 25, player.getY() + 35));
-    			rightTopColor = new Color(image.getRGB(player.getX() + 25 + 25, player.getY()));
+    			
+    			rightFootColor = new Color(image.getRGB(player.getX() + 42, player.getY() + 52));
+    			rightCenterColor = new Color(image.getRGB(player.getX() + 42, player.getY() + 26));
+    			rightTopColor = new Color(image.getRGB(player.getX() + 42, player.getY()));
 			} catch (ArrayIndexOutOfBoundsException e) {
 				try {
 					Thread.sleep(16);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
-				leftFootColor = new Color(image.getRGB(player.getX() + 0, player.getY() + 50 )); //
-	        	leftCenterColor = new Color(image.getRGB(player.getX() + 0, player.getY() + 35)); //
-				leftTopColor = new Color(image.getRGB(player.getX() + 0, player.getY()));
-				CenterFootColor = new Color(image.getRGB(player.getX() + 25, player.getY() + 40));
-				CenterTopColor = new Color(image.getRGB(player.getX() + 25, player.getY()));
-				rightFootColor = new Color(image.getRGB(player.getX() + 25 + 25, player.getY() + 50));
-				rightCenterColor = new Color(image.getRGB(player.getX() + 25 + 25, player.getY() + 35));
-				rightTopColor = new Color(image.getRGB(player.getX() + 25 + 25, player.getY()));
+				leftFootColor = new Color(image.getRGB(player.getX() + 0, player.getY() + 52 )); //
+            	leftCenterColor = new Color(image.getRGB(player.getX() + 0, player.getY() + 26)); //
+    			leftTopColor = new Color(image.getRGB(player.getX() + 0, player.getY()));
+    			
+    			CenterFootColor = new Color(image.getRGB(player.getX() + 25, player.getY() + 52));
+    			CenterTopColor = new Color(image.getRGB(player.getX() + 25, player.getY()));
+    			
+    			rightFootColor = new Color(image.getRGB(player.getX() + 46, player.getY() + 52));
+    			rightCenterColor = new Color(image.getRGB(player.getX() + 46, player.getY() + 26));
+    			rightTopColor = new Color(image.getRGB(player.getX() + 46, player.getY()));
 			}
         	
              
 
              
             // 바닥 검사
-            if (leftFootColor.getRGB() != Color.red.getRGB() && rightFootColor.getRGB() != Color.red.getRGB() && CenterFootColor.getRGB() != Color.red.getRGB()){
+        	HashSet<Color> bottomCheck = new HashSet<Color>();
+        	bottomCheck.add(leftFootColor);
+        	bottomCheck.add(rightFootColor);
+        	bottomCheck.add(CenterFootColor);
+        	
+            if ((bottomCheck.contains(Color.red))){
+            	if(bottomCheck.size() <= 2) {
+            		if(!player.isDrop()) player.drop();	
+            	}
+            	player.setDrop(false);
+            }else {
             	if (!(player.isJump()) && !(player.isDrop())) {
-            		//player.setStand(false);
                     player.drop();
                 }
-            }else {
-            	//player.setStand(true);
-            	player.setDrop(false);
-            	
             }
             
+            // 천장 검사
+            HashSet<Color> TopCheck = new HashSet<Color>();
+            TopCheck.add(leftTopColor);
+            TopCheck.add(rightTopColor);
+            TopCheck.add(CenterTopColor);
+        
+            if ((TopCheck.size() > 1)){
+            	if(!player.isDrop()) player.drop();
+            }
             
-           
+            // 왼쪽 충돌
+            ArrayList<Color> leftCheck = new ArrayList<Color>();
+            leftCheck.add(leftTopColor);
+            leftCheck.add(leftCenterColor);
+            leftCheck.add(leftFootColor);
             
-            // 바닥 벽 왼쪽 충돌
-            if (leftCenterColor.getRGB() == Color.red.getRGB() && leftFootColor.getRGB() == Color.red.getRGB()) {
-				player.setLeftWallcrash(true);
-				player.setLeft(false);
-				player.right();
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+            if (leftCheck.contains(Color.red)) {
+            	int count = 0;
+            	
+            	for (Color color : leftCheck) {
+					if(color.equals(Color.red)) {
+						count++;
+					}
 				}
-				player.setRight(false);
-
-			//바닥벽 오른쪽 충돌 
-			} else if (rightCenterColor.getRGB() == Color.red.getRGB() && rightFootColor.getRGB() == Color.red.getRGB() 
-							&& leftFootColor.getRGB() == Color.red.getRGB()) {
-				player.setRightWallcrash(true);
-				player.setRight(false);
-				player.left();
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				player.setLeft(false);
+            	
+            	if( count == 3) {
+            		player.setLeftWallcrash(true);
+    				player.setLeft(false);
+    				
+            	}else if (count == 2) {
+            		player.setLeftWallcrash(true);
+            	}else if(count ==1) {
+            		player.setLeftWallcrash(true);
+            		if(leftCheck.get(2).equals(Color.red)) {
+            			player.setLeftWallcrash(false);
+            		}
+            		
+            	}
+            }else {
+            	player.setLeftWallcrash(false);
+            }
 				
-				
-	        } else {
-				player.setLeftWallcrash(false);
-				player.setRightWallcrash(false);
-				
-			}
-            
-            // 머리가 먼자 부딪힘
-			if (rightTopColor.getRGB() == Color.red.getRGB() && leftFootColor.getRGB() == Color.white.getRGB()) {
-				player.drop();
-			}
-			else if (leftTopColor.getRGB() == Color.red.getRGB() && rightFootColor.getRGB() == Color.white.getRGB()) {
-				player.drop();
-			}
 			
+			//바닥벽 오른쪽 충돌 
+            ArrayList<Color> RightCheck = new ArrayList<Color>();
+            RightCheck.add(rightTopColor);
+            RightCheck.add(rightCenterColor);
+            RightCheck.add(rightFootColor);
             
-            
+            if (RightCheck.contains(Color.red)) {
+            	int count = 0;
+            	
+            	for (Color color : RightCheck) {
+					if(color.equals(Color.red)) {
+						count++;
+					}
+				}
+            	
+            	if( count == 3) {
+            		player.setRightWallcrash(true);
+    				player.setRight(false);
+    				
+            	}else if (count == 2) {
+            		player.setRightWallcrash(true);
+            	}else if(count ==1) {
+            		player.setRightWallcrash(true);
+            		if(RightCheck.get(2).equals(Color.red)) {
+            			
+            			player.setRightWallcrash(false);
+            		}
+            	}
+            }else {
+            	player.setRightWallcrash(false);
+            }
+    
             try {
 				Thread.sleep(2);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-            
-			
 		}
-        
-        
-
 	}// end of run
 }
