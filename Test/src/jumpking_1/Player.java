@@ -3,6 +3,8 @@ package jumpking_1;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import jumpking_1.Obstacle_object.Block1;
+import jumpking_1.Obstacle_object.Obstacle;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +13,7 @@ import lombok.Setter;
 public class Player extends JLabel implements Moveable {
 	private static Player instance;
 	private BackgroundMap backgroundMap;
+	private Obstacle obstacle;
 
 	// 위치 상태
 	private int x;
@@ -25,13 +28,12 @@ public class Player extends JLabel implements Moveable {
 	private boolean jump;
 	private boolean stand;
 	private boolean drop;
-
+	private boolean ride;
 
 	// 플레이어 속도 상태
 	private final int SPEED = 2;
 	private final int DROPSPEED = 2;
 	private int JUMPPOWER; // Drop , jump 값은 변수선언
-	
 
 	// 벽에 충돌한 상태
 	private boolean LeftWallcrash;
@@ -41,35 +43,35 @@ public class Player extends JLabel implements Moveable {
 
 	private ImageIcon[] playerR = { new ImageIcon("images/chR1.png"), // 0(오른쪽보는)
 //									new ImageIcon("images/RS.png"), // 1(중간다리)
-									new ImageIcon("images/RRL.png"),
+			new ImageIcon("images/RRL.png"),
 //									new ImageIcon("images/RS.png"),// 2(왼쪽다리)
-									new ImageIcon("images/RRR.png") };// 3(오른쪽다리)
+			new ImageIcon("images/RRR.png") };// 3(오른쪽다리)
 
 	private ImageIcon[] playerL = { new ImageIcon("images/chL1.png"), // 0(왼쪽쪽보는)
-									new ImageIcon("images/LS.png"), // 1(중간다리)
-									new ImageIcon("images/LLL.png"), // 2(오른쪽다리)
-									new ImageIcon("images/LLR.png") }; // 3(왼쪽다리)
+			new ImageIcon("images/LS.png"), // 1(중간다리)
+			new ImageIcon("images/LLL.png"), // 2(오른쪽다리)
+			new ImageIcon("images/LLR.png") }; // 3(왼쪽다리)
 	private ImageIcon playerWalkingL;
 
 	private ImageIcon[] jumpLeftmotion = { new ImageIcon("images/jmplm.png"), // (왼쪽 점프)
-										   new ImageIcon("images/jmdlm.png") };// (왼쪽 다운)
+			new ImageIcon("images/jmdlm.png") };// (왼쪽 다운)
 
 	private ImageIcon[] jumpRightmotion = { new ImageIcon("images/jmplmR.png"), // (오른쪽 점프)
-										    new ImageIcon("images/jmdlmR.png") };// (오른쪽 다운);
+			new ImageIcon("images/jmdlmR.png") };// (오른쪽 다운);
 	private ImageIcon chargeJump;
 	private ImageIcon downR;
-	
-	
+
 	public static Player getInstance(BackgroundMap m) {
-		if(instance == null) {
+		if (instance == null) {
 			instance = new Player(m);
 		}
-		
+
 		return instance;
 	}
-	
+
 	private Player(BackgroundMap m) {
 		this.backgroundMap = m;
+		this.obstacle = backgroundMap.getObstacle1();
 		initObject();
 		initsettting();
 		initBackgroundPlayerService();
@@ -85,20 +87,20 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	private void initsettting() {
-		x = 220;
-		y = 500;
+		x = 480;
+		y = 100;
 
 		left = false;
 		right = false;
 		jump = false;
 		stand = false;
 		drop = false;
+		ride = false;
 
 		LeftWallcrash = false;
 		RightWallcrash = false;
 		RightjumpWallcrash = false;
 		LeftjumpWallcrash = false;
-
 
 		setIcon(playerR[0]);
 		setSize(50, 50);
@@ -120,8 +122,7 @@ public class Player extends JLabel implements Moveable {
 						x = x - SPEED;
 						setLocation(x, y);
 						try {
-							Thread.sleep(5)
-							;
+							Thread.sleep(5);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -146,8 +147,8 @@ public class Player extends JLabel implements Moveable {
 			public void run() {
 				while (right) {
 					for (int i = 1; i < 10; i++) {
-						setIcon(playerR[i%2]);
-						x = x + SPEED*4;
+						setIcon(playerR[i % 2]);
+						x = x + SPEED * 4;
 						setLocation(x, y);
 						try {
 							Thread.sleep(15);
@@ -173,21 +174,21 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				setIcon(jumpRightmotion[0]);
-					for (int i = 0; i < 40; i++) {
-						y = y - 4;
-						setLocation(x, y);
-						try {
-							Thread.sleep(8);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}				
-					jump = false;
+				for (int i = 0; i < 40; i++) {
+					y = y - 4;
+					setLocation(x, y);
+					try {
+						Thread.sleep(8);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				jump = false;
 				drop();
-				
+
 			}
-			
+
 		}).start();
 
 	}
@@ -202,7 +203,7 @@ public class Player extends JLabel implements Moveable {
 			public void run() {
 				while (drop) {
 
-                        y = y + 5;
+					y = y + 5;
 
 					setLocation(x, y);
 					setJump(false);
@@ -216,5 +217,34 @@ public class Player extends JLabel implements Moveable {
 				drop = false;
 			}
 		}).start();
+	}
+
+	@Override
+	public void rideCloude(Obstacle obstacle , int Xdistance ,boolean Odirection) {
+		System.out.println("구름 타기");
+		jump = false;
+		drop = false;
+		ride = true;
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				do{
+					ride = obstacle.collideRec(instance, obstacle.getX(), obstacle.getY());
+					System.out.println();
+					
+					setLocation(obstacle.getX() + Xdistance, obstacle.getY() - 10);
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+
+				}while(ride);
+				
+			}
+		}).start();
+		
 	}
 }

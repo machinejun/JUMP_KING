@@ -10,6 +10,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import jumpking_1.Obstacle_object.Block1;
+import jumpking_1.Obstacle_object.Obstacle;
+import lombok.Getter;
+
+@Getter
 public class BackgroundMap extends JLabel{
 	private ImageIcon ImageOP;
 	private ImageIcon Image1;
@@ -19,6 +24,9 @@ public class BackgroundMap extends JLabel{
 	private ImageIcon Image5;
 	private ImageIcon ImageEd;
 	private ImageIcon Image;
+	
+	private Obstacle obstacle1;
+	private Obstacle obstacle2;
 	
 	private int stageNum = 1;
 	
@@ -34,6 +42,7 @@ public class BackgroundMap extends JLabel{
 		ImageEd = new ImageIcon("images/gameover.png");
 		Image = Image1;
 		setIcon(Image);
+		
 	}
 	
 	
@@ -44,6 +53,8 @@ public class BackgroundMap extends JLabel{
 			Image = Image1;
 		}else if(stageNum == 2) {
 			Image = Image2;
+			obstacle1 = new Block1();
+			this.add(obstacle1);
 		}else if(stageNum == 3) {
 			Image = Image3;
 		}else if(stageNum == 4) {

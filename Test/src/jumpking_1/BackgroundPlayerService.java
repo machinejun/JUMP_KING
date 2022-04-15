@@ -110,7 +110,7 @@ public class BackgroundPlayerService implements Runnable {
             if (bottomCheck.contains(Color.red) && CenterFootColor.getRGB() != Color.white.getRGB()){
             	player.setDrop(false);
             }else {
-            	if (!(player.isJump()) && !(player.isDrop())) {
+            	if (!(player.isJump()) && !(player.isDrop()) && !(player.isRide())) { // 
                     player.drop();
                 }
             }

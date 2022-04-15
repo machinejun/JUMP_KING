@@ -17,7 +17,7 @@ public class Block1 extends Obstacle{
 	private BackgroundMap backgroundMap;
 	private ImageIcon block1;
 	private int x = 628;
-	private int y = 750;
+	private int y = 700;
 	private Player player;
 	
 	
@@ -31,8 +31,9 @@ public class Block1 extends Obstacle{
 	
 	@Override
 	void addObstacle() {
+		System.out.println("블럭 붙임");
 		block1 = new ImageIcon("images/cloude.png");
-		setSize(194,47);
+		setSize(200,50);
 		setLocation(x,y);
 		setIcon(block1);
 		controlBlock();
@@ -42,16 +43,17 @@ public class Block1 extends Obstacle{
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				boolean direction = true;
+				System.out.println("구름");
+				direction = true;
 				
 				while(backgroundMap.getStageNum() == 2) {
 					if (direction) {
-						x += 10;
+						x += 5;
 					} else {
-						x -= 10;
+						x -= 5;
 					}
 
-					if (x >= 800) {
+					if (x >= 900) {
 						System.out.println("wh");
 						direction = false;
 					}
