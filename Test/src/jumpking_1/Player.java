@@ -24,13 +24,13 @@ public class Player extends JLabel implements Moveable {
 	private boolean jump;
 	private boolean stand;
 	private boolean drop;
-	private int dropCount = 1;
+
 
 	// 플레이어 속도 상태
 	private final int SPEED = 1;
 	private final int DROPSPEED = 2;
 	private int JUMPPOWER; // Drop , jump 값은 변수선언
-	private int vector = 1;
+	
 
 	// 벽에 충돌한 상태
 	private boolean LeftWallcrash;
@@ -39,21 +39,22 @@ public class Player extends JLabel implements Moveable {
 	private boolean LeftjumpWallcrash;
 
 	private ImageIcon[] playerR = { new ImageIcon("images/chR1.png"), // 0(오른쪽보는)
-			new ImageIcon("images/RS.png"), // 1(중간다리)
-			new ImageIcon("images/RRL.png"), // 2(왼쪽다리)
-			new ImageIcon("images/RRR.png") };// 3(오른쪽다리)
+//									new ImageIcon("images/RS.png"), // 1(중간다리)
+									new ImageIcon("images/RRL.png"),
+//									new ImageIcon("images/RS.png"),// 2(왼쪽다리)
+									new ImageIcon("images/RRR.png") };// 3(오른쪽다리)
 
 	private ImageIcon[] playerL = { new ImageIcon("images/chL1.png"), // 0(왼쪽쪽보는)
-			new ImageIcon("images/LS.png"), // 1(중간다리)
-			new ImageIcon("images/LLL.png"), // 2(오른쪽다리)
-			new ImageIcon("images/LLR.png") }; // 3(왼쪽다리)
+									new ImageIcon("images/LS.png"), // 1(중간다리)
+									new ImageIcon("images/LLL.png"), // 2(오른쪽다리)
+									new ImageIcon("images/LLR.png") }; // 3(왼쪽다리)
 	private ImageIcon playerWalkingL;
 
 	private ImageIcon[] jumpLeftmotion = { new ImageIcon("images/jmplm.png"), // (왼쪽 점프)
-			new ImageIcon("images/jmdlm.png") };// (왼쪽 다운)
+										   new ImageIcon("images/jmdlm.png") };// (왼쪽 다운)
 
 	private ImageIcon[] jumpRightmotion = { new ImageIcon("images/jmplmR.png"), // (오른쪽 점프)
-			new ImageIcon("images/jmdlmR.png") };// (오른쪽 다운);
+										    new ImageIcon("images/jmdlmR.png") };// (오른쪽 다운);
 	private ImageIcon chargeJump;
 	private ImageIcon downR;
 
@@ -88,7 +89,6 @@ public class Player extends JLabel implements Moveable {
 		RightjumpWallcrash = false;
 		LeftjumpWallcrash = false;
 
-		playerWay = PlayerWay.NULL;
 
 		setIcon(playerR[0]);
 		setSize(50, 50);
@@ -99,18 +99,19 @@ public class Player extends JLabel implements Moveable {
 	@Override
 	public void left() {
 		System.out.println("left");
-		playerWay = PlayerWay.LEFT;
+
 		left = true;
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while (left) {
-					for (int i = 1; i < 4; i++) {
+					for (int i = 0; i < 4; i++) {
 						setIcon(playerL[i]);
 						x = x - SPEED;
 						setLocation(x, y);
 						try {
-							Thread.sleep(3);
+							Thread.sleep(5)
+							;
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -128,18 +129,18 @@ public class Player extends JLabel implements Moveable {
 	@Override
 	public void right() {
 		System.out.println("right");
-		playerWay = PlayerWay.RIGHT;
+
 		right = true;
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while (right) {
-					for (int i = 1; i < 4; i++) {
-						setIcon(playerR[i]);
-						x = x + SPEED;
+					for (int i = 1; i < 10; i++) {
+						setIcon(playerR[i%2]);
+						x = x + SPEED*4;
 						setLocation(x, y);
 						try {
-							Thread.sleep(3);
+							Thread.sleep(15);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -161,8 +162,7 @@ public class Player extends JLabel implements Moveable {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				
-				if (playerWay == PlayerWay.NULL) {
+				setIcon(jumpRightmotion[0]);
 					for (int i = 0; i < 45; i++) {
 						y = y - 4;
 						setLocation(x, y);
@@ -172,75 +172,18 @@ public class Player extends JLabel implements Moveable {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-					}
-				}
-
-				if (playerWay == PlayerWay.RIGHT) {
-					setIcon(jumpRightmotion[0]);
-					// x 120 y 240
-					for (int i = 0; i < 50; i++) {
-						if (i / 10 < 2) {
-							x = x + 3;
-							y = y - 6;
-						} else if (i / 10 < 4) {
-							x = x + 3;
-							y = y - 2;
-						} else{
-							x = x + 3;
-							y = y - 1;
-						}
-						setLocation(x, y);
-						try {
-							Thread.sleep(9);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-					}
-					vector = 1;
-				}
-				
-				
-				if (playerWay == PlayerWay.LEFT) {
-					setIcon(jumpRightmotion[0]);
-					// x 120 y 240
-					for (int i = 0; i < 50; i++) {
-
-						if (i / 10 < 2) {
-							x = x - 3;
-							y = y - 6;
-						} else if (i / 10 < 4) {
-							x = x - 3;
-							y = y - 2;
-						} else{
-							x = x - 3;
-							y = y - 1;
-						}
-						setLocation(x, y);
-						try {
-							Thread.sleep(9);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-					}
-					vector = 1;
-				}
-				
-				
-				jump = false;
+					}				
+					jump = false;
 				drop();
+				
 			}
+			
 		}).start();
 
 	}
 
 	@Override
-	public void jumpcharge() {
-
-	}
-
-	@Override
 	public void drop() {
-		
 		System.out.println("down");
 		drop = true;
 		JUMPPOWER = 2;
@@ -248,20 +191,11 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (drop) {
-					if (playerWay == PlayerWay.NULL || dropCount == 0) {
-						y = y + 4;
-						dropCount = 2;
-					} else if (playerWay == PlayerWay.RIGHT) {
-						x = x + 4;
-						y = y + 5;
-						dropCount--;
-					} else if (playerWay == PlayerWay.LEFT) {
-						x = x - 4;
-						y = y + 5;
-						dropCount--;
-					}
+
+                        y = y + 5;
 
 					setLocation(x, y);
+					setJump(false);
 					try {
 						Thread.sleep(12);
 					} catch (InterruptedException e) {

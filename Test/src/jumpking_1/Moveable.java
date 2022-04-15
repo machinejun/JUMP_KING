@@ -5,5 +5,4 @@ public interface Moveable {
 	void right();
 	void jump();
 	void drop();
-	void jumpcharge();
 }

@@ -33,7 +33,7 @@ public class JumpKIngFrame extends JFrame {
 
 	private void initSetting() {
 		setVisible(true);
-		setSize(1400, 1040);
+		setSize(1420, 1040);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -48,13 +48,13 @@ public class JumpKIngFrame extends JFrame {
 
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_LEFT:
-					if (!player.isLeft() && !player.isLeftWallcrash() && !player.isJump() && !player.isDrop()) {
+					if (!player.isLeft() && !player.isLeftWallcrash()) {
 						player.left();
 					}
 
 					break;
 				case KeyEvent.VK_RIGHT:
-					if (!player.isRight() && !player.isRightWallcrash() && !player.isJump() && !player.isDrop()) {
+					if (!player.isRight() && !player.isRightWallcrash()) {
 						player.right();
 					}
 					break;
@@ -62,18 +62,7 @@ public class JumpKIngFrame extends JFrame {
 
 					break;
 				case KeyEvent.VK_SPACE:
-//					if (player.isLeft() && player.isLeftjumpWallcrash()) {
-//						player.jumpL();
-//					}
-					System.out.println("점프");
-					player.getChargeJump();
-
-					System.out.println(player.getPlayerWay());
-					if (PlayerWay.LEFT == player.getPlayerWay()) {
-						System.out.println("왼쪽 방향을 보고 있습니다.");
-					} else {
-						System.out.println("오른쪽 방향을 보고 있습니다.");
-					}
+					player.setJump(false);			
 					break;
 				}
 
@@ -90,9 +79,10 @@ public class JumpKIngFrame extends JFrame {
 					player.setRight(false);
 					break;
 				case KeyEvent.VK_SPACE:
-					if (!player.isJump() && !player.isDrop() && !player.isRight() && !player.isLeft()) {
+					if (!player.isJump() && !player.isDrop()) {
 						player.jump();
 					}
+					
 					break;
 
 				}

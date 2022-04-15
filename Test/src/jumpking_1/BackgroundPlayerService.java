@@ -58,14 +58,14 @@ public class BackgroundPlayerService implements Runnable {
         	
         	 // 자바의 좌표 기준은 왼쪽 위, 아이콘 크기 50, 50
         	try {
-        		leftFootColor = new Color(image.getRGB(player.getX() + 8, player.getY() + 52 )); //
+        		leftFootColor = new Color(image.getRGB(player.getX() + 8, player.getY() + 50)); //
             	leftCenterColor = new Color(image.getRGB(player.getX() + 8, player.getY() + 26)); //
     			leftTopColor = new Color(image.getRGB(player.getX() + 8, player.getY()));
     			
-    			CenterFootColor = new Color(image.getRGB(player.getX() + 25, player.getY() + 52));
+    			CenterFootColor = new Color(image.getRGB(player.getX() + 25, player.getY() + 50));
     			CenterTopColor = new Color(image.getRGB(player.getX() + 25, player.getY()));
     			
-    			rightFootColor = new Color(image.getRGB(player.getX() + 42, player.getY() + 52));
+    			rightFootColor = new Color(image.getRGB(player.getX() + 42, player.getY() + 50));
     			rightCenterColor = new Color(image.getRGB(player.getX() + 42, player.getY() + 26));
     			rightTopColor = new Color(image.getRGB(player.getX() + 42, player.getY()));
 			} catch (ArrayIndexOutOfBoundsException e) {
@@ -97,7 +97,7 @@ public class BackgroundPlayerService implements Runnable {
         	
             if ((bottomCheck.contains(Color.red))){
             	if(bottomCheck.size() <= 2) {
-            		if(!player.isDrop()) player.drop();	
+//            		if(!player.isDrop()) player.drop();	
             	}
             	player.setDrop(false);
             }else {
@@ -134,14 +134,33 @@ public class BackgroundPlayerService implements Runnable {
             	if( count == 3) {
             		player.setLeftWallcrash(true);
     				player.setLeft(false);
-    				
+    				player.right();
+    				try {
+						Thread.sleep(5);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+    				player.setRight(false);
             	}else if (count == 2) {
             		player.setLeftWallcrash(true);
+            		player.right();
+    				try {
+						Thread.sleep(5);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+    				player.setRight(false);
+
             	}else if(count ==1) {
-            		player.setLeftWallcrash(true);
             		if(leftCheck.get(2).equals(Color.red)) {
             			player.setLeftWallcrash(false);
+            		}else {
+            			player.setLeftWallcrash(true);
             		}
+            		
+            		
             		
             	}
             }else {
@@ -167,15 +186,33 @@ public class BackgroundPlayerService implements Runnable {
             	if( count == 3) {
             		player.setRightWallcrash(true);
     				player.setRight(false);
-    				
+    				player.left();
+    				try {
+						Thread.sleep(5);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+    				player.setLeft(false);
             	}else if (count == 2) {
             		player.setRightWallcrash(true);
+            		player.left();
+    				try {
+						Thread.sleep(5);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+    				player.setLeft(false);
+
             	}else if(count ==1) {
-            		player.setRightWallcrash(true);
             		if(RightCheck.get(2).equals(Color.red)) {
-            			
             			player.setRightWallcrash(false);
+            		}else {
+            			player.setRightWallcrash(true);
             		}
+            		
+            		
             	}
             }else {
             	player.setRightWallcrash(false);
