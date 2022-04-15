@@ -5,10 +5,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import javax.imageio.ImageIO;
-import javax.swing.RepaintManager;
 
 // 메인 쓰레드는 바쁨 -> 키보드 이벤트 처리를 해야하기 때문
 // 백그라운드에서 계속 관찰
@@ -19,6 +19,8 @@ public class BackgroundPlayerService implements Runnable {
 	private BufferedImage image2;
 	private BufferedImage image3;
 	private BufferedImage image4;
+	private BufferedImage image5;
+	private BufferedImage imageEd;
 	private Player player;
 	private BackgroundMap backgroundMap;
 
@@ -28,8 +30,10 @@ public class BackgroundPlayerService implements Runnable {
 		try {
 			image1 = ImageIO.read(new File("images/stage1bg.png"));	//1번맵
 			image2 = ImageIO.read(new File("images/stage2bg.png")); // 2번 맵
-			// image3 = ImageIO.read(new File("images/stage3bg.png")); // 3번맵
-			// image4 = ImageIO.read(new File("images/stage4bg.png")); // 4번맵
+			image3 = ImageIO.read(new File("images/stage3bg.png")); // 3번맵
+			image4 = ImageIO.read(new File("images/stage4bg.png")); // 4번맵
+			image5 = ImageIO.read(new File("images/stage5bg.png")); // 4번맵
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -44,6 +48,14 @@ public class BackgroundPlayerService implements Runnable {
         		image = image1;
         	}else if(backgroundMap.getStageNum() == 2) {
         		image = image2;
+        	}else if(backgroundMap.getStageNum() == 3) {
+        		image = image3;
+        	}else if(backgroundMap.getStageNum() == 4) {
+        		image = image4;
+        	}else if(backgroundMap.getStageNum() == 5) {
+        		image = image5;
+        	}else if(backgroundMap.getStageNum() == 2) {
+        		image = imageEd;
         	}
         	
         	Color leftFootColor;
@@ -70,7 +82,7 @@ public class BackgroundPlayerService implements Runnable {
     			rightTopColor = new Color(image.getRGB(player.getX() + 42, player.getY()));
 			} catch (ArrayIndexOutOfBoundsException e) {
 				try {
-					Thread.sleep(16);
+					Thread.sleep(20);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
@@ -95,10 +107,7 @@ public class BackgroundPlayerService implements Runnable {
         	bottomCheck.add(rightFootColor);
         	bottomCheck.add(CenterFootColor);
         	
-            if ((bottomCheck.contains(Color.red))){
-            	if(bottomCheck.size() <= 2) {
-//            		if(!player.isDrop()) player.drop();	
-            	}
+            if (bottomCheck.contains(Color.red) && CenterFootColor.getRGB() != Color.white.getRGB()){
             	player.setDrop(false);
             }else {
             	if (!(player.isJump()) && !(player.isDrop())) {
@@ -106,117 +115,46 @@ public class BackgroundPlayerService implements Runnable {
                 }
             }
             
+          //바닥벽 오른쪽 충돌 
+            HashSet<Color> RightCheck = new HashSet<Color>();
+            RightCheck.add(rightTopColor);
+            RightCheck.add(rightCenterColor);
+            
+            if (RightCheck.contains(Color.red)) {
+            	player.setRightWallcrash(true);
+            	player.setRight(false);
+            }else {
+            	player.setRightWallcrash(false);
+            }
+            
+            // 왼쪽 충돌
+            HashSet<Color> leftCheck = new HashSet<Color>();
+            leftCheck.add(leftTopColor);
+            leftCheck.add(leftCenterColor);
+            
+            
+            if (leftCheck.contains(Color.red)) {
+            	player.setLeftWallcrash(true);
+            	player.setLeft(false);
+            }else {
+            	player.setLeftWallcrash(false);
+            }
+            
+            
             // 천장 검사
             HashSet<Color> TopCheck = new HashSet<Color>();
             TopCheck.add(leftTopColor);
             TopCheck.add(rightTopColor);
             TopCheck.add(CenterTopColor);
         
-            if ((TopCheck.size() > 1)){
-            	if(!player.isDrop()) player.drop();
+            if ((TopCheck.contains(Color.red)) && CenterFootColor.getRGB() == Color.white.getRGB()){
+            	if(player.isJump()) player.drop();
             }
             
-            // 왼쪽 충돌
-            ArrayList<Color> leftCheck = new ArrayList<Color>();
-            leftCheck.add(leftTopColor);
-            leftCheck.add(leftCenterColor);
-            leftCheck.add(leftFootColor);
-            
-            if (leftCheck.contains(Color.red)) {
-            	int count = 0;
-            	
-            	for (Color color : leftCheck) {
-					if(color.equals(Color.red)) {
-						count++;
-					}
-				}
-            	
-            	if( count == 3) {
-            		player.setLeftWallcrash(true);
-    				player.setLeft(false);
-    				player.right();
-    				try {
-						Thread.sleep(5);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-    				player.setRight(false);
-            	}else if (count == 2) {
-            		player.setLeftWallcrash(true);
-            		player.right();
-    				try {
-						Thread.sleep(5);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-    				player.setRight(false);
-
-            	}else if(count ==1) {
-            		if(leftCheck.get(2).equals(Color.red)) {
-            			player.setLeftWallcrash(false);
-            		}else {
-            			player.setLeftWallcrash(true);
-            		}
-            		
-            		
-            		
-            	}
-            }else {
-            	player.setLeftWallcrash(false);
-            }
+        
 				
 			
-			//바닥벽 오른쪽 충돌 
-            ArrayList<Color> RightCheck = new ArrayList<Color>();
-            RightCheck.add(rightTopColor);
-            RightCheck.add(rightCenterColor);
-            RightCheck.add(rightFootColor);
-            
-            if (RightCheck.contains(Color.red)) {
-            	int count = 0;
-            	
-            	for (Color color : RightCheck) {
-					if(color.equals(Color.red)) {
-						count++;
-					}
-				}
-            	
-            	if( count == 3) {
-            		player.setRightWallcrash(true);
-    				player.setRight(false);
-    				player.left();
-    				try {
-						Thread.sleep(5);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-    				player.setLeft(false);
-            	}else if (count == 2) {
-            		player.setRightWallcrash(true);
-            		player.left();
-    				try {
-						Thread.sleep(5);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-    				player.setLeft(false);
-
-            	}else if(count ==1) {
-            		if(RightCheck.get(2).equals(Color.red)) {
-            			player.setRightWallcrash(false);
-            		}else {
-            			player.setRightWallcrash(true);
-            		}
-            		
-            		
-            	}
-            }else {
-            	player.setRightWallcrash(false);
-            }
+			
     
             try {
 				Thread.sleep(2);

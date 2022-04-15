@@ -9,6 +9,7 @@ import lombok.Setter;
 
 @Data
 public class Player extends JLabel implements Moveable {
+	private static Player instance;
 	private BackgroundMap backgroundMap;
 
 	// 위치 상태
@@ -27,7 +28,7 @@ public class Player extends JLabel implements Moveable {
 
 
 	// 플레이어 속도 상태
-	private final int SPEED = 1;
+	private final int SPEED = 2;
 	private final int DROPSPEED = 2;
 	private int JUMPPOWER; // Drop , jump 값은 변수선언
 	
@@ -57,8 +58,17 @@ public class Player extends JLabel implements Moveable {
 										    new ImageIcon("images/jmdlmR.png") };// (오른쪽 다운);
 	private ImageIcon chargeJump;
 	private ImageIcon downR;
-
-	public Player(BackgroundMap m) {
+	
+	
+	public static Player getInstance(BackgroundMap m) {
+		if(instance == null) {
+			instance = new Player(m);
+		}
+		
+		return instance;
+	}
+	
+	private Player(BackgroundMap m) {
 		this.backgroundMap = m;
 		initObject();
 		initsettting();
@@ -163,7 +173,7 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				setIcon(jumpRightmotion[0]);
-					for (int i = 0; i < 45; i++) {
+					for (int i = 0; i < 40; i++) {
 						y = y - 4;
 						setLocation(x, y);
 						try {

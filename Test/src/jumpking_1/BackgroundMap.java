@@ -15,6 +15,8 @@ public class BackgroundMap extends JLabel{
 	private ImageIcon Image1;
 	private ImageIcon Image2;
 	private ImageIcon Image3;
+	private ImageIcon Image4;
+	private ImageIcon Image5;
 	private ImageIcon ImageEd;
 	private ImageIcon Image;
 	
@@ -23,11 +25,13 @@ public class BackgroundMap extends JLabel{
 	
 	
 	public BackgroundMap() {
-		ImageOP = new ImageIcon("images/stage1.png");
+		ImageOP = new ImageIcon("images/op.png");
 		Image1 = new ImageIcon("images/stage1.png");
 		Image2 = new ImageIcon("images/stage2.png");
-		Image3 = new ImageIcon("images/stage1.png");
-		ImageEd = new ImageIcon("images/stage1.png");
+		Image3 = new ImageIcon("images/stage3.png");
+		Image4 = new ImageIcon("images/stage4.png");
+		Image5 = new ImageIcon("images/stage5.png");
+		ImageEd = new ImageIcon("images/gameover.png");
 		Image = Image1;
 		setIcon(Image);
 	}
@@ -35,15 +39,19 @@ public class BackgroundMap extends JLabel{
 	
 	public void changeStage() {
 		if(stageNum == 0) {
-			//Image = ImageOP;
+			Image = ImageOP;
 		}else if(stageNum == 1) {
 			Image = Image1;
 		}else if(stageNum == 2) {
 			Image = Image2;
 		}else if(stageNum == 3) {
-			//Image = Image3;
+			Image = Image3;
 		}else if(stageNum == 4) {
-			//Image = ImageEd;
+			Image = Image4;
+		}else if(stageNum == 5) {
+			Image = Image5;
+		}else {
+			Image = ImageEd;
 		}
 		setIcon(Image);
 

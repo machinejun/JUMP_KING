@@ -24,7 +24,7 @@ public class JumpKIngFrame extends JFrame {
 
 	private void initObject() {
 		backgroundMap = new BackgroundMap();
-		player = new Player(backgroundMap);
+		player = Player.getInstance(backgroundMap);
 		setLayout(null);
 		setContentPane(backgroundMap);
 		backgroundMap.add(player);
