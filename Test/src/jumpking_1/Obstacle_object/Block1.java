@@ -16,13 +16,15 @@ public class Block1 extends Obstacle{
 	private ObstacleObserver observer;
 	private BackgroundMap backgroundMap;
 	private ImageIcon block1;
-	private int x = 628;
-	private int y = 700;
+	private int x ;
+	private int y ;
 	private Player player;
 	
 	
 	
-	public Block1() {
+	public Block1(int x, int y) {
+		this.x = x;
+		this.y = y;
 		player = Player.getInstance(backgroundMap);
 		backgroundMap = player.getBackgroundMap();
 		observer = new ObstacleObserver();
@@ -46,7 +48,7 @@ public class Block1 extends Obstacle{
 				System.out.println("구름");
 				direction = true;
 				
-				while(backgroundMap.getStageNum() == 2) {
+				while(backgroundMap.getStageNum() == 3) {
 					if (direction) {
 						x += 5;
 					} else {
@@ -58,7 +60,7 @@ public class Block1 extends Obstacle{
 						direction = false;
 					}
 
-					if (x <= 130) {
+					if (x <= 350) {
 						direction = true;
 					}
 					check(player);

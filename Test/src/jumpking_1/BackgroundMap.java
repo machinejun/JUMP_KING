@@ -25,8 +25,7 @@ public class BackgroundMap extends JLabel{
 	private ImageIcon ImageEd;
 	private ImageIcon Image;
 	
-	private Obstacle obstacle1;
-	private Obstacle obstacle2;
+
 	
 	private int stageNum = 1;
 	
@@ -53,10 +52,13 @@ public class BackgroundMap extends JLabel{
 			Image = Image1;
 		}else if(stageNum == 2) {
 			Image = Image2;
-			obstacle1 = new Block1();
-			this.add(obstacle1);
+			
 		}else if(stageNum == 3) {
 			Image = Image3;
+			Obstacle obstacle1  = new Block1(628, 700);
+			Obstacle obstacle2  = new Block1(628, 300);
+			this.add(obstacle1);
+			this.add(obstacle2);
 		}else if(stageNum == 4) {
 			Image = Image4;
 		}else if(stageNum == 5) {

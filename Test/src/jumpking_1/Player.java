@@ -13,7 +13,7 @@ import lombok.Setter;
 public class Player extends JLabel implements Moveable {
 	private static Player instance;
 	private BackgroundMap backgroundMap;
-	private Obstacle obstacle;
+
 
 	// 위치 상태
 	private int x;
@@ -71,7 +71,7 @@ public class Player extends JLabel implements Moveable {
 
 	private Player(BackgroundMap m) {
 		this.backgroundMap = m;
-		this.obstacle = backgroundMap.getObstacle1();
+
 		initObject();
 		initsettting();
 		initBackgroundPlayerService();
