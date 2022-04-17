@@ -3,8 +3,8 @@ package jumpking_1;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import jumpking_1.Obstacle_object.Block1;
-import jumpking_1.Obstacle_object.Obstacle;
+import Obstacle_object.Block1;
+import Obstacle_object.Obstacle;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +13,6 @@ import lombok.Setter;
 public class Player extends JLabel implements Moveable {
 	private static Player instance;
 	private BackgroundMap backgroundMap;
-
 
 	// 위치 상태
 	private int x;
@@ -29,6 +28,7 @@ public class Player extends JLabel implements Moveable {
 	private boolean stand;
 	private boolean drop;
 	private boolean ride;
+	private int jumpup = 1;
 
 	// 플레이어 속도 상태
 	private final int SPEED = 2;
@@ -42,14 +42,14 @@ public class Player extends JLabel implements Moveable {
 	private boolean LeftjumpWallcrash;
 
 	private ImageIcon[] playerR = { new ImageIcon("images/chR1.png"), // 0(오른쪽보는)
-//									new ImageIcon("images/RS.png"), // 1(중간다리)
-			new ImageIcon("images/RRL.png"),
-//									new ImageIcon("images/RS.png"),// 2(왼쪽다리)
+			new ImageIcon("images/RS.png"), // 1(중간다리)
+			new ImageIcon("images/RRL.png"), new ImageIcon("images/RS.png"), // 2(왼쪽다리)
 			new ImageIcon("images/RRR.png") };// 3(오른쪽다리)
 
 	private ImageIcon[] playerL = { new ImageIcon("images/chL1.png"), // 0(왼쪽쪽보는)
 			new ImageIcon("images/LS.png"), // 1(중간다리)
-			new ImageIcon("images/LLL.png"), // 2(오른쪽다리)
+			new ImageIcon("images/LLL.png"),
+			new ImageIcon("images/LS.png"),
 			new ImageIcon("images/LLR.png") }; // 3(왼쪽다리)
 	private ImageIcon playerWalkingL;
 
@@ -88,7 +88,7 @@ public class Player extends JLabel implements Moveable {
 
 	private void initsettting() {
 		x = 480;
-		y = 100;
+		y = 800;
 
 		left = false;
 		right = false;
@@ -117,7 +117,7 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (left) {
-					for (int i = 0; i < 4; i++) {
+					for (int i = 0; i < 4 ; i++) {
 						setIcon(playerL[i]);
 						x = x - SPEED;
 						setLocation(x, y);
@@ -146,12 +146,12 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (right) {
-					for (int i = 1; i < 10; i++) {
-						setIcon(playerR[i % 2]);
-						x = x + SPEED * 4;
+					for (int i = 0; i < 4; i++) {
+						setIcon(playerR[i]);
+						x = x + SPEED;
 						setLocation(x, y);
 						try {
-							Thread.sleep(15);
+							Thread.sleep(5);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -174,11 +174,11 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				setIcon(jumpRightmotion[0]);
-				for (int i = 0; i < 40; i++) {
-					y = y - 4;
+				for (int i = 0; i < 300; i++) {
+					y = y - (10 * jumpup);
 					setLocation(x, y);
 					try {
-						Thread.sleep(8);
+						Thread.sleep(15);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -208,7 +208,7 @@ public class Player extends JLabel implements Moveable {
 					setLocation(x, y);
 					setJump(false);
 					try {
-						Thread.sleep(12);
+						Thread.sleep(20);
 					} catch (InterruptedException e) {
 
 					}
@@ -220,20 +220,20 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	@Override
-	public void rideCloude(Obstacle obstacle , int Xdistance ,boolean Odirection) {
+	public void rideCloude(Obstacle obstacle, int Xdistance, boolean Odirection) {
 		System.out.println("구름 타기");
 		jump = false;
 		drop = false;
 		ride = true;
-		
+
 		new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
-				do{
+				do {
 					ride = obstacle.collideRec(instance, obstacle.getX(), obstacle.getY());
-					System.out.println();
-					
+				
+
 					setLocation(obstacle.getX() + Xdistance, obstacle.getY() - 10);
 					try {
 						Thread.sleep(100);
@@ -241,10 +241,16 @@ public class Player extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 
-				}while(ride);
-				
+				} while (ride);
+				System.out.println("sdfsdfsdfsd");
 			}
 		}).start();
-		
+
+	}
+
+	@Override
+	public int jumpup() {
+		jumpup = 3;
+		return 0;
 	}
 }

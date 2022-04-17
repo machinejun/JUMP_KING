@@ -23,7 +23,7 @@ public class PlayerStageObserver implements Runnable {
 				} else if (player.getY() >= 950 && backgroundMap.getStageNum() == 2) {
 					backgroundMap.setStageNum(1);
 					backgroundMap.changeStage();
-					player.setY(70);	
+					player.setY(60);	
 				} else if (player.getY() <= 50 && backgroundMap.getStageNum() == 2) {
 					backgroundMap.setStageNum(3);
 					backgroundMap.changeStage();

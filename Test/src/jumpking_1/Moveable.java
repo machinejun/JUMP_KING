@@ -1,6 +1,6 @@
 package jumpking_1;
 
-import jumpking_1.Obstacle_object.Obstacle;
+import Obstacle_object.Obstacle;
 
 public interface Moveable {
 	void left();
@@ -8,4 +8,5 @@ public interface Moveable {
 	void jump();
 	void drop();
 	void rideCloude(Obstacle obstacle, int x,boolean direction);
+	int jumpup();
 }

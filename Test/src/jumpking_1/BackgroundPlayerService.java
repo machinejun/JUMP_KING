@@ -59,43 +59,56 @@ public class BackgroundPlayerService implements Runnable {
         	}
         	
         	Color leftFootColor;
+        	Color leftFootColorup;
         	Color leftCenterColor;
 			Color leftTopColor; 
 			Color CenterFootColor ;
 			Color CenterTopColor ;
 			Color rightFootColor ;
+			Color rightFootColorup ;
 			Color rightCenterColor;
-			Color rightTopColor ;
-        	
+			Color rightTopColor;
+			Color CenterleftFootColor;
+			Color CenterrightFootColor;
         	
         	 // 자바의 좌표 기준은 왼쪽 위, 아이콘 크기 50, 50
         	try {
-        		leftFootColor = new Color(image.getRGB(player.getX() + 8, player.getY() + 50)); //
-            	leftCenterColor = new Color(image.getRGB(player.getX() + 8, player.getY() + 26)); //
-    			leftTopColor = new Color(image.getRGB(player.getX() + 8, player.getY()));
+        		leftFootColor = new Color(image.getRGB(player.getX() - 8, player.getY() + 52)); //
+        		leftFootColorup = new Color(image.getRGB(player.getX() - 8, player.getY() + 42)); //
+            	leftCenterColor = new Color(image.getRGB(player.getX() - 8, player.getY() + 35)); //
+    			leftTopColor = new Color(image.getRGB(player.getX() + 16, player.getY()));
     			
-    			CenterFootColor = new Color(image.getRGB(player.getX() + 25, player.getY() + 50));
+    			CenterFootColor = new Color(image.getRGB(player.getX() + 25, player.getY() + 52));
+    			CenterleftFootColor = new Color(image.getRGB(player.getX() + 10, player.getY() + 52));
+    			CenterrightFootColor = new Color(image.getRGB(player.getX() + 30, player.getY() + 52));
+    			
     			CenterTopColor = new Color(image.getRGB(player.getX() + 25, player.getY()));
     			
-    			rightFootColor = new Color(image.getRGB(player.getX() + 42, player.getY() + 50));
-    			rightCenterColor = new Color(image.getRGB(player.getX() + 42, player.getY() + 26));
-    			rightTopColor = new Color(image.getRGB(player.getX() + 42, player.getY()));
+    			rightFootColor = new Color(image.getRGB(player.getX() + 55, player.getY() + 52));
+    			rightFootColorup = new Color(image.getRGB(player.getX() + 55, player.getY() + 42));
+    			rightCenterColor = new Color(image.getRGB(player.getX() + 55, player.getY() + 35));
+    			rightTopColor = new Color(image.getRGB(player.getX() + 34, player.getY()));
 			} catch (ArrayIndexOutOfBoundsException e) {
 				try {
-					Thread.sleep(20);
+					Thread.sleep(15);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
-				leftFootColor = new Color(image.getRGB(player.getX() + 0, player.getY() + 52 )); //
-            	leftCenterColor = new Color(image.getRGB(player.getX() + 0, player.getY() + 26)); //
-    			leftTopColor = new Color(image.getRGB(player.getX() + 0, player.getY()));
+				leftFootColor = new Color(image.getRGB(player.getX() - 8, player.getY() + 52)); //
+        		leftFootColorup = new Color(image.getRGB(player.getX() - 8, player.getY() + 42)); //
+            	leftCenterColor = new Color(image.getRGB(player.getX() - 8, player.getY() + 35)); //
+    			leftTopColor = new Color(image.getRGB(player.getX() + 16, player.getY()));
     			
     			CenterFootColor = new Color(image.getRGB(player.getX() + 25, player.getY() + 52));
+    			CenterleftFootColor = new Color(image.getRGB(player.getX() + 10, player.getY() + 52));
+    			CenterrightFootColor = new Color(image.getRGB(player.getX() + 30, player.getY() + 52));
+    			
     			CenterTopColor = new Color(image.getRGB(player.getX() + 25, player.getY()));
     			
-    			rightFootColor = new Color(image.getRGB(player.getX() + 46, player.getY() + 52));
-    			rightCenterColor = new Color(image.getRGB(player.getX() + 46, player.getY() + 26));
-    			rightTopColor = new Color(image.getRGB(player.getX() + 46, player.getY()));
+    			rightFootColor = new Color(image.getRGB(player.getX() + 55, player.getY() + 52));
+    			rightFootColorup = new Color(image.getRGB(player.getX() + 55, player.getY() + 42));
+    			rightCenterColor = new Color(image.getRGB(player.getX() + 55, player.getY() + 35));
+    			rightTopColor = new Color(image.getRGB(player.getX() + 34, player.getY()));
 			}
         	
              
@@ -104,10 +117,15 @@ public class BackgroundPlayerService implements Runnable {
             // 바닥 검사
         	HashSet<Color> bottomCheck = new HashSet<Color>();
         	bottomCheck.add(leftFootColor);
+        	bottomCheck.add(leftFootColorup);
         	bottomCheck.add(rightFootColor);
+        	bottomCheck.add(rightFootColorup);
         	bottomCheck.add(CenterFootColor);
+        	bottomCheck.add(CenterleftFootColor);
+        	bottomCheck.add(CenterrightFootColor);
         	
-            if (bottomCheck.contains(Color.red) && CenterFootColor.getRGB() != Color.white.getRGB()){
+        	
+            if (bottomCheck.contains(Color.red) && CenterrightFootColor.getRGB() != Color.white.getRGB() || CenterleftFootColor.getRGB() != Color.white.getRGB()){
             	player.setDrop(false);
             }else {
             	if (!(player.isJump()) && !(player.isDrop()) && !(player.isRide())) { // 
@@ -117,8 +135,10 @@ public class BackgroundPlayerService implements Runnable {
             
           //바닥벽 오른쪽 충돌 
             HashSet<Color> RightCheck = new HashSet<Color>();
-            RightCheck.add(rightTopColor);
+//            RightCheck.add(rightTopColor);
             RightCheck.add(rightCenterColor);
+            RightCheck.add(rightFootColorup);
+            
             
             if (RightCheck.contains(Color.red)) {
             	player.setRightWallcrash(true);
@@ -129,8 +149,10 @@ public class BackgroundPlayerService implements Runnable {
             
             // 왼쪽 충돌
             HashSet<Color> leftCheck = new HashSet<Color>();
-            leftCheck.add(leftTopColor);
+//            leftCheck.add(leftTopColor);
             leftCheck.add(leftCenterColor);
+            leftCheck.add(leftFootColorup);
+            
             
             
             if (leftCheck.contains(Color.red)) {

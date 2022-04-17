@@ -33,7 +33,7 @@ public class JumpKIngFrame extends JFrame {
 
 	private void initSetting() {
 		setVisible(true);
-		setSize(1420, 1040);
+		setSize(1410, 1040);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

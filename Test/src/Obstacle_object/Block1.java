@@ -1,4 +1,4 @@
-package jumpking_1.Obstacle_object;
+package Obstacle_object;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -8,7 +8,6 @@ import jumpking_1.BackgroundMap;
 import jumpking_1.Player;
 import lombok.Getter;
 import lombok.Setter;
-
 @Getter
 @Setter
 public class Block1 extends Obstacle{
@@ -33,7 +32,6 @@ public class Block1 extends Obstacle{
 	
 	@Override
 	void addObstacle() {
-		System.out.println("블럭 붙임");
 		block1 = new ImageIcon("images/cloude.png");
 		setSize(200,50);
 		setLocation(x,y);
@@ -45,7 +43,7 @@ public class Block1 extends Obstacle{
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				System.out.println("구름");
+
 				direction = true;
 				
 				while(backgroundMap.getStageNum() == 3) {

@@ -1,4 +1,4 @@
-package jumpking_1.Obstacle_object;
+package Obstacle_object;
 
 import javax.swing.JLabel;
 
@@ -6,7 +6,7 @@ import jumpking_1.Player;
 
 public abstract class Obstacle extends JLabel{
 	boolean direction = true;
-
+	boolean drinking = true;
 	
 	abstract void addObstacle();
 	
