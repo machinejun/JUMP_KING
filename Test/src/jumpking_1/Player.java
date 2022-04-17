@@ -266,11 +266,11 @@ public class Player extends JLabel implements Moveable {
 			public void run() {
 				for (int i = 0; i < 30; i++) {// 장애물 왼쪽 부딪힘
 					if ((x + 50) <  obstacle.getX() +(obstacle.getWidth()/2)) {	
-						x = x - 10;
-						y = y - 8;
+						x = x - 2;
+						y = y - 6;
 					} else if (x > obstacle.getX() +(obstacle.getWidth()/2)) {
 						x = x + 2;
-						y = y - 15;
+						y = y - 6;
 					}
 
 					try {

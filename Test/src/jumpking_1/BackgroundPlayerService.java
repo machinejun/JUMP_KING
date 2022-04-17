@@ -135,7 +135,6 @@ public class BackgroundPlayerService implements Runnable {
             
           //바닥벽 오른쪽 충돌 
             HashSet<Color> RightCheck = new HashSet<Color>();
-//            RightCheck.add(rightTopColor);
             RightCheck.add(rightCenterColor);
             RightCheck.add(rightFootColorup);
             
@@ -149,7 +148,6 @@ public class BackgroundPlayerService implements Runnable {
             
             // 왼쪽 충돌
             HashSet<Color> leftCheck = new HashSet<Color>();
-//            leftCheck.add(leftTopColor);
             leftCheck.add(leftCenterColor);
             leftCheck.add(leftFootColorup);
             

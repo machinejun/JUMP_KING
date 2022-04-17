@@ -46,12 +46,29 @@ public class Monster extends Obstacle{
 			
 			@Override
 			public void run() {
+				direction = true;
 				System.out.println("해골@@@");
 				while(backgroundMap.getStageNum() == 5) {				
+					if (direction) {
+						x += 2;
+					} else {
+						x -= 2;
+					}
+
+					if (x >= 850) {
+						System.out.println("wh");
+						direction = false;
+					}
+
+					if (x <= 350) {
+						direction = true;
+					}
+					
+					
 					monsterhit(player);
 					setLocation(x , y);
 					try {
-						Thread.sleep(3);
+						Thread.sleep(10);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
