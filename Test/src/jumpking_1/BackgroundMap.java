@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 
 import Obstacle_object.Block1;
 import Obstacle_object.Obstacle;
+import Obstacle_object.Princess;
 import Obstacle_object.Waterpill;
 import lombok.Data;
 import lombok.Getter;
@@ -51,10 +52,14 @@ public class BackgroundMap extends JLabel {
 			this.add(obstacle2);
 		} else if (stageNum == 4) {
 			Image = Image4;
-			Obstacle obstacle3 = new Waterpill(200, 500);
+			Obstacle obstacle3 = new Waterpill(250, 900);
 			this.add(obstacle3);
 		} else if (stageNum == 5) {
 			Image = Image5;
+			Obstacle obstacle4 = new Princess(1100, 300);
+			this.add(obstacle4);
+		} else if(stageNum == 6 ) {
+			Image = ImageEd;
 		} else {
 			Image = ImageEd;
 		}

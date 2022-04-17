@@ -1,5 +1,8 @@
 package Obstacle_object;
 
+import javax.swing.ImageIcon;
+
+import jumpking_1.BackgroundMap;
 import jumpking_1.Player;
 
 public class ObstacleObserver {
@@ -35,4 +38,17 @@ public class ObstacleObserver {
 			}
 		}
 	}
+	public void save(Player player, Princess obstacle, BackgroundMap backgroundMap) {
+		int x = obstacle.getX();
+		int y = obstacle.getY(); 
+		if(obstacle.collideRec(player, x, y)) {
+			if(player.getX() > obstacle.getX() - 25 && player.getX() < obstacle.getX() + obstacle.getWidth()) {
+				obstacle.setSave(false);
+				obstacle.setVisible(false);
+				backgroundMap.setStageNum(6);
+				backgroundMap.changeStage();
+				player.setVisible(false);
+	}
+}
+}
 }

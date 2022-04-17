@@ -15,7 +15,7 @@ public class PlayerStageObserver implements Runnable {
 
 		while (true) {
 			int i = 1;
-			if( 0 <= i && i <= 5) {
+			if( 0 <= i && i <= 6) {
 				if (player.getY() <= 50 && backgroundMap.getStageNum() == 1) {
 					backgroundMap.setStageNum(2);
 					backgroundMap.changeStage();
@@ -47,16 +47,16 @@ public class PlayerStageObserver implements Runnable {
 				} else if (player.getY() >= 950 && backgroundMap.getStageNum() == 5) {
 					backgroundMap.setStageNum(4);
 					backgroundMap.changeStage();
-					player.setY(70);	
-				} 
+					player.setY(70);
+				}  
+				// 엔딩테스트
+//				else if(player.getX() == 1100 && player.getY() == 300 && backgroundMap.getStageNum() == 5) {
+//					backgroundMap.setStageNum(6);
+//					backgroundMap.changeStage();
+//			
+//			}
 			
 			}
-			
-			// 5스테이지 일때 조건
-//			if(player.getX() == 600 && player.getY() == 400) {
-//				backgroundMap.setStageNum(6);
-//				backgroundMap.changeStage();
-//			}
 			
 
 			try {

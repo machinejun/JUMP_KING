@@ -1,0 +1,127 @@
+[33mcommit 0ec43e34948adb37bc997a0848117883fa58c7a9[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: DESKTOP-NUOPUIF\ITPS <ITPS@gmail.com>
+Date:   Sat Apr 16 12:22:56 2022 +0900
+
+    장애물 수정
+
+[33mcommit e0b3ad3c8d0a572bd9d7efec6b803b22f5be8ed5[m
+Author: machinejun <akswns03@naver.com>
+Date:   Sat Apr 16 02:17:34 2022 +0900
+
+    구름 발판
+
+[33mcommit 6186e32ca3070c63bd1d1e4c2452bf987d0cdd8c[m
+Author: machinejun <akswns03@naver.com>
+Date:   Sat Apr 16 00:22:32 2022 +0900
+
+    수정
+
+[33mcommit 5d275ae9740b5726cfcd6491cf6ac9f19c8e6597[m
+Author: machinejun <akswns03@naver.com>
+Date:   Fri Apr 15 23:24:34 2022 +0900
+
+    맵 변경 + 튕겨짐 수정
+
+[33mcommit ad8259f7150fef7bcbb6a433b20d613760302123[m
+Author: vlvkdn4107 <vlvkdn4107@gamil.com>
+Date:   Fri Apr 15 18:16:36 2022 +0900
+
+    텔레포트
+
+[33mcommit c5fa81390d5eb01bf931acf00cd8a1a266e9c462[m
+Author: machinejun <akswns03@naver.com>
+Date:   Fri Apr 15 00:52:45 2022 +0900
+
+    점프 + 튕겨 나오기
+
+[33mcommit d4dc035c3f3a59ff4e555d350c919fcbb8ef919f[m
+Author: vlvkdn4107 <vlvkdn4107@gamil.com>
+Date:   Thu Apr 14 18:27:52 2022 +0900
+
+    프로젝트
+
+[33mcommit 3ee6f9a54035c9bbf10cdf2ced5726709f73422f[m
+Author: machinejun <akswns03@naver.com>
+Date:   Thu Apr 14 10:43:53 2022 +0900
+
+    맵 변경+ 보정 완료
+
+[33mcommit 2fe97c7ca6ba767dc8c376f003050048b04651c0[m
+Author: machinejun <akswns03@naver.com>
+Date:   Wed Apr 13 09:35:06 2022 +0900
+
+    협업 시작
+
+[33mcommit 0388696829355d4ad0e645d03f737e1908ff30fb[m
+Author: machinejun <akswns03@naver.com>
+Date:   Tue Apr 12 23:38:10 2022 +0900
+
+    0412_1차 수정
+
+[33mcommit 020e38866d76c4dc0dc59cba1264c99950b16866[m
+Author: machinejun <akswns03@naver.com>
+Date:   Tue Apr 12 18:30:37 2022 +0900
+
+    hello
+
+[33mcommit 0a8b37ed72798fed739e88e6ca756a6b272d75db[m
+Author: machinejun <akswns03@naver.com>
+Date:   Mon Apr 11 20:57:24 2022 +0900
+
+    2
+
+[33mcommit 189e92cda71bf06e60595aeaa49ff93e65ba3443[m
+Merge: 317e827 02a892d
+Author: gyudong0920 <gyudong1996@gmail.com>
+Date:   Mon Apr 11 19:14:29 2022 +0900
+
+    Merge branch 'main' of https://github.com/machinejun/JUMP_KING
+
+[33mcommit 317e82743f3538afccc04082a037cdd2eea36428[m
+Author: gyudong0920 <gyudong1996@gmail.com>
+Date:   Mon Apr 11 19:13:52 2022 +0900
+
+    make
+
+[33mcommit 02a892d8d3d130f012ec4a8913ff583975241bed[m
+Author: vlvkdn4107 <vlvkdn4107@gamil.com>
+Date:   Mon Apr 11 16:12:12 2022 +0900
+
+    수정확인
+
+[33mcommit 3da6f457fbded1ca62648d7dece64d39bca0f229[m
+Merge: 8c521b0 19ca775
+Author: Youjeongmu <bkul286040@gmail.com>
+Date:   Mon Apr 11 16:07:35 2022 +0900
+
+     수정
+
+[33mcommit 19ca77579ce5826976588e539918323d8d34800a[m
+Author: gyudong0920 <gyudong1996@gmail.com>
+Date:   Mon Apr 11 15:58:49 2022 +0900
+
+    good
+
+[33mcommit 8c521b03678793d9aacf57e5cddf6b758ac0de4a[m
+Author: Youjeongmu <bkul286040@gmail.com>
+Date:   Mon Apr 11 15:29:44 2022 +0900
+
+     안녕하세요
+
+[33mcommit 3be5d2b0d042e903b5e1f26dbf230c584c753e13[m
+Author: machinejun <akswns03@naver.com>
+Date:   Mon Apr 11 15:29:04 2022 +0900
+
+    update test
+
+[33mcommit 24da7cad3f4171c831d6f8c03306a58830f3fc0b[m
+Author: machinejun <akswns03@naver.com>
+Date:   Mon Apr 11 15:22:50 2022 +0900
+
+    test1
+
+[33mcommit c3a3a10a32970de79849dc4c70841d2ef06461b4[m
+Author: junic <99931188+machinejun@users.noreply.github.com>
+Date:   Mon Apr 11 15:09:18 2022 +0900
+
+    Initial commit

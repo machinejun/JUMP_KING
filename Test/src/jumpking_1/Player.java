@@ -174,8 +174,8 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				setIcon(jumpRightmotion[0]);
-				for (int i = 0; i < 300; i++) {
-					y = y - (10 * jumpup);
+				for (int i = 0; i < 35; i++) {
+					y = y - (5 * jumpup);
 					setLocation(x, y);
 					try {
 						Thread.sleep(15);
@@ -250,7 +250,7 @@ public class Player extends JLabel implements Moveable {
 
 	@Override
 	public int jumpup() {
-		jumpup = 3;
+		jumpup = 2;
 		return 0;
 	}
 }
