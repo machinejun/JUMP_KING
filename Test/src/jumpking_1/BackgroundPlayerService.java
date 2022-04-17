@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 public class BackgroundPlayerService implements Runnable {
 	private int stage;
 	private BufferedImage image;
+	private BufferedImage imageOP;
 	private BufferedImage image1;
 	private BufferedImage image2;
 	private BufferedImage image3;
@@ -28,6 +29,7 @@ public class BackgroundPlayerService implements Runnable {
 		this.player = player;
 		this.backgroundMap = backgroundMap;
 		try {
+			imageOP = ImageIO.read(new File("images/opbg.png"));
 			image1 = ImageIO.read(new File("images/stage1bg.png"));	//1번맵
 			image2 = ImageIO.read(new File("images/stage2bg.png")); // 2번 맵
 			image3 = ImageIO.read(new File("images/stage3bg.png")); // 3번맵
@@ -37,13 +39,16 @@ public class BackgroundPlayerService implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		image = image1;
+		image = imageOP;
 	}
 
 	@Override
     public void run() {
 
         while (true) {
+        	if(backgroundMap.getStageNum() == 0) {
+        		image = imageOP;
+        	}
         	if(backgroundMap.getStageNum() == 1) {
         		image = image1;
         	}else if(backgroundMap.getStageNum() == 2) {

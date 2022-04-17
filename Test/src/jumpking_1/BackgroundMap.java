@@ -23,7 +23,7 @@ public class BackgroundMap extends JLabel {
 	private ImageIcon ImageEd;
 	private ImageIcon Image;
 
-	private int stageNum = 1;
+	private int stageNum = 0;
 
 	public BackgroundMap() {
 		ImageOP = new ImageIcon("images/op.png");
@@ -33,7 +33,7 @@ public class BackgroundMap extends JLabel {
 		Image4 = new ImageIcon("images/stage4.png");
 		Image5 = new ImageIcon("images/stage5.png");
 		ImageEd = new ImageIcon("images/gameover.png");
-		Image = Image1;
+		Image = ImageOP;
 		setIcon(Image);
 
 	}

@@ -16,7 +16,14 @@ public class PlayerStageObserver implements Runnable {
 		while (true) {
 			int i = 1;
 			if( 0 <= i && i <= 6) {
-				if (player.getY() <= 50 && backgroundMap.getStageNum() == 1) {
+				if(player.getY() <= 600 && backgroundMap.getStageNum() == 0) {
+					System.out.println("game start");
+					backgroundMap.setStageNum(1);
+					backgroundMap.changeStage();
+					player.setX(480);
+					player.setY(800);
+				}
+				else if (player.getY() <= 50 && backgroundMap.getStageNum() == 1) {
 					backgroundMap.setStageNum(2);
 					backgroundMap.changeStage();
 					player.setY(910);
