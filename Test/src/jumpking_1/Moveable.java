@@ -9,4 +9,5 @@ public interface Moveable {
 	void drop();
 	void rideCloude(Obstacle obstacle, int x,boolean direction);
 	int jumpup();
+	void hit(Obstacle obstacle);
 }

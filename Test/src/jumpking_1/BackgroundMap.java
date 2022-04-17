@@ -4,6 +4,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import Obstacle_object.Block1;
+import Obstacle_object.Monster;
 import Obstacle_object.Obstacle;
 import Obstacle_object.Princess;
 import Obstacle_object.Waterpill;
@@ -57,7 +58,9 @@ public class BackgroundMap extends JLabel {
 		} else if (stageNum == 5) {
 			Image = Image5;
 			Obstacle obstacle4 = new Princess(1100, 300);
+			Obstacle obstacle5 = new Monster(500, 300);
 			this.add(obstacle4);
+			this.add(obstacle5);
 		} else if(stageNum == 6 ) {
 			Image = ImageEd;
 		} else {

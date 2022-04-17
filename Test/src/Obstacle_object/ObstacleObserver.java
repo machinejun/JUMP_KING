@@ -51,4 +51,15 @@ public class ObstacleObserver {
 	}
 }
 }
+	public void monsterhit(Player player, Obstacle obstacle) {
+	    if(obstacle.collideRec(player, obstacle.getX(), obstacle.getY())) {
+	    	 //충돌이 나면
+	    	if(player.getX() < obstacle.getX()){//플레이어의 x가 더 작으면    			    		
+	    		player.hit(obstacle);    	    
+	    	}else if(player.getX() > obstacle.getX()) {	    		 
+	    		player.hit(obstacle);   
+	    	}
+	    }
+	   
+	}
 }

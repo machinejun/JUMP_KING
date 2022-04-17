@@ -28,6 +28,7 @@ public class Player extends JLabel implements Moveable {
 	private boolean stand;
 	private boolean drop;
 	private boolean ride;
+	private boolean behit;
 	private int jumpup = 1;
 
 	// 플레이어 속도 상태
@@ -96,6 +97,7 @@ public class Player extends JLabel implements Moveable {
 		stand = false;
 		drop = false;
 		ride = false;
+		behit = false;
 
 		LeftWallcrash = false;
 		RightWallcrash = false;
@@ -252,5 +254,38 @@ public class Player extends JLabel implements Moveable {
 	public int jumpup() {
 		jumpup = 2;
 		return 0;
+	}
+
+	@Override
+	public void hit(Obstacle obstacle) {
+		behit = true;
+		jump = false;
+		drop = false;
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				for (int i = 0; i < 30; i++) {// 장애물 왼쪽 부딪힘
+					if ((x + 50) <  obstacle.getX() +(obstacle.getWidth()/2)) {	
+						x = x - 10;
+						y = y - 8;
+					} else if (x > obstacle.getX() +(obstacle.getWidth()/2)) {
+						x = x + 2;
+						y = y - 15;
+					}
+
+					try {
+						Thread.sleep(5);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					setLocation(x, y);
+				}
+				behit = false;
+				
+
+			}
+		}).start();
+		
 	}
 }
