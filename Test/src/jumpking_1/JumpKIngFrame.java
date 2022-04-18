@@ -28,6 +28,7 @@ public class JumpKIngFrame extends JFrame {
 		setLayout(null);
 		setContentPane(backgroundMap);
 		backgroundMap.add(player);
+		new BGM();
 
 	}
 
