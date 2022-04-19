@@ -65,6 +65,13 @@ public class JumpKIngFrame extends JFrame {
 				case KeyEvent.VK_SPACE:
 					player.setJump(false);			
 					break;
+				case KeyEvent.VK_ENTER:
+ 					if(backgroundMap.getStageNum() == 7) {
+					backgroundMap.setStageNum(0);
+					backgroundMap.changeStage();
+					player.setVisible(true);
+					player.setJumpup(1);
+					}
 				}
 
 			} // end of keyPressd

@@ -250,7 +250,7 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				for (int i = 0; i < 30; i++) {// 장애물 왼쪽 부딪힘
-					if ((x + 50) <  obstacle.getX() +(obstacle.getWidth()/2)) {	
+					if ((x + 50) <  obstacle.getX() +(obstacle.getWidth()/2)) {	//플레이어의 x + 50(오른쪽 상단) 몬스터 크기의 2/1
 						x = x - 2;
 						y = y - 6;
 					} else if (x > obstacle.getX() +(obstacle.getWidth()/2)) {

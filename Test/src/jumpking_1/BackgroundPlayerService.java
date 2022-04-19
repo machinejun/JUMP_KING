@@ -59,7 +59,7 @@ public class BackgroundPlayerService implements Runnable {
         		image = image4;
         	}else if(backgroundMap.getStageNum() == 5) {
         		image = image5;
-        	}else if(backgroundMap.getStageNum() == 2) {
+        	}else if(backgroundMap.getStageNum() == 6) {
         		image = imageEd;
         	}
         	

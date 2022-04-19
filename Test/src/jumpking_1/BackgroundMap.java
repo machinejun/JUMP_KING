@@ -49,8 +49,8 @@ public class BackgroundMap extends JLabel {
 			Image = Image2;
 		} else if (stageNum == 3) {// stageNum이 3이면 스테이지3에 구름발판을 넣는다
 			Image = Image3;
-			Obstacle obstacle1 = new Block1(628, 700);
-			Obstacle obstacle2 = new Block1(628, 300);
+			Obstacle obstacle1 = new Block1(628, 700);//위치할 좌표
+			Obstacle obstacle2 = new Block1(628, 300);//위치할 좌표
 			this.add(obstacle1);
 			this.add(obstacle2);
 		} else if (stageNum == 4) {//// stageNum이 4이면 스테이지4에 물약을 넣는다
