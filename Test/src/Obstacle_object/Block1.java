@@ -8,19 +8,18 @@ import jumpking_1.BackgroundMap;
 import jumpking_1.Player;
 import lombok.Getter;
 import lombok.Setter;
+
 @Getter
 @Setter
-public class Block1 extends Obstacle{
+public class Block1 extends Obstacle {
 	private Block1 block12 = this;
 	private ObstacleObserver observer;
 	private BackgroundMap backgroundMap;
 	private ImageIcon block1;
-	private int x ;
-	private int y ;
+	private int x;
+	private int y;
 	private Player player;
-	
-	
-	
+
 	public Block1(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -29,24 +28,24 @@ public class Block1 extends Obstacle{
 		observer = new ObstacleObserver();
 		addObstacle();
 	}
-	
+
 	@Override
 	void addObstacle() {
 		block1 = new ImageIcon("images/cloude.png");
-		setSize(200,50);
-		setLocation(x,y);
+		setSize(200, 50);
+		setLocation(x, y);
 		setIcon(block1);
 		controlBlock();
 	}
-	
-	public void controlBlock(){
+
+	public void controlBlock() {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 
 				direction = true;
-				
-				while(backgroundMap.getStageNum() == 3) {
+
+				while (backgroundMap.getStageNum() == 3) {
 					if (direction) {
 						x += 5;
 					} else {
@@ -54,7 +53,6 @@ public class Block1 extends Obstacle{
 					}
 
 					if (x >= 900) {
-						System.out.println("wh");
 						direction = false;
 					}
 
@@ -75,11 +73,9 @@ public class Block1 extends Obstacle{
 			}
 		}).start();
 	}
-	
+
 	private void check(Player player) {
-		observer.check(player, this);	
+		observer.check(player, this);
 	}
-	
-	
 
 }

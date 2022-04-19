@@ -33,7 +33,7 @@ public class Monster extends Obstacle{
 	}
 	@Override
 	void addObstacle() { 
-		System.out.println("해골");	
+		
 		setSize(100, 100);
 		setLocation(x , y);
 		setIcon(monsterIcon);
@@ -47,7 +47,6 @@ public class Monster extends Obstacle{
 			@Override
 			public void run() {
 				direction = true;
-				System.out.println("해골@@@");
 				while(backgroundMap.getStageNum() == 5) {				
 					if (direction) {
 						x += 2;
@@ -56,15 +55,14 @@ public class Monster extends Obstacle{
 					}
 
 					if (x >= 850) {
-						System.out.println("wh");
+						
 						direction = false;
 					}
 
 					if (x <= 350) {
 						direction = true;
 					}
-					
-					
+	
 					monsterhit(player, backgroundMap);
 					setLocation(x , y);
 					try {

@@ -43,22 +43,21 @@ public class Player extends JLabel implements Moveable {
 	private boolean LeftjumpWallcrash;
 
 	private ImageIcon[] playerR = { new ImageIcon("images/chR1.png"), // 0(오른쪽보는)
-			new ImageIcon("images/RS.png"), // 1(중간다리)
-			new ImageIcon("images/RRL.png"), new ImageIcon("images/RS.png"), // 2(왼쪽다리)
-			new ImageIcon("images/RRR.png") };// 3(오른쪽다리)
+									new ImageIcon("images/RS.png"),   // 1(중간다리)
+									new ImageIcon("images/RRL.png"),  // 2(왼쪽다리)
+									new ImageIcon("images/RRR.png") };// 3(오른쪽다리)
 
-	private ImageIcon[] playerL = { new ImageIcon("images/chL1.png"), // 0(왼쪽쪽보는)
-			new ImageIcon("images/LS.png"), // 1(중간다리)
-			new ImageIcon("images/LLL.png"),
-			new ImageIcon("images/LS.png"),
-			new ImageIcon("images/LLR.png") }; // 3(왼쪽다리)
+	private ImageIcon[] playerL = { new ImageIcon("images/chL1.png"),  // 0(왼쪽쪽보는)
+									new ImageIcon("images/LS.png"),    // 1(중간다리)
+									new ImageIcon("images/LLL.png"),   // 2(오른쪽다리)
+									new ImageIcon("images/LLR.png") }; // 3(왼쪽다리)
 	private ImageIcon playerWalkingL;
 
 	private ImageIcon[] jumpLeftmotion = { new ImageIcon("images/jmplm.png"), // (왼쪽 점프)
-			new ImageIcon("images/jmdlm.png") };// (왼쪽 다운)
+										   new ImageIcon("images/jmdlm.png") };// (왼쪽 다운)
 
 	private ImageIcon[] jumpRightmotion = { new ImageIcon("images/jmplmR.png"), // (오른쪽 점프)
-			new ImageIcon("images/jmdlmR.png") };// (오른쪽 다운);
+											new ImageIcon("images/jmdlmR.png") };// (오른쪽 다운);
 	private ImageIcon chargeJump;
 	private ImageIcon downR;
 
@@ -112,8 +111,6 @@ public class Player extends JLabel implements Moveable {
 	// 이벤트 핸들러
 	@Override
 	public void left() {
-		System.out.println("left");
-
 		left = true;
 		new Thread(new Runnable() {
 			@Override
@@ -141,8 +138,6 @@ public class Player extends JLabel implements Moveable {
 
 	@Override
 	public void right() {
-		System.out.println("right");
-
 		right = true;
 		new Thread(new Runnable() {
 			@Override
@@ -197,16 +192,13 @@ public class Player extends JLabel implements Moveable {
 
 	@Override
 	public void drop() {
-		System.out.println("down");
 		drop = true;
 		JUMPPOWER = 2;
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while (drop) {
-
 					y = y + 5;
-
 					setLocation(x, y);
 					setJump(false);
 					try {
@@ -214,7 +206,6 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 
 					}
-
 				}
 				drop = false;
 			}
@@ -223,19 +214,14 @@ public class Player extends JLabel implements Moveable {
 
 	@Override
 	public void rideCloude(Obstacle obstacle, int Xdistance, boolean Odirection) {
-		System.out.println("구름 타기");
 		jump = false;
 		drop = false;
 		ride = true;
-
 		new Thread(new Runnable() {
-
 			@Override
 			public void run() {
 				do {
-					ride = obstacle.collideRec(instance, obstacle.getX(), obstacle.getY());
-				
-
+					ride = obstacle.collideRec(instance, obstacle.getX(), obstacle.getY());			
 					setLocation(obstacle.getX() + Xdistance, obstacle.getY() - 10);
 					try {
 						Thread.sleep(100);
@@ -244,7 +230,6 @@ public class Player extends JLabel implements Moveable {
 					}
 
 				} while (ride);
-				System.out.println("sdfsdfsdfsd");
 			}
 		}).start();
 
