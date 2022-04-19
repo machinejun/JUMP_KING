@@ -65,7 +65,7 @@ public class Monster extends Obstacle{
 					}
 					
 					
-					monsterhit(player);
+					monsterhit(player, backgroundMap);
 					setLocation(x , y);
 					try {
 						Thread.sleep(10);
@@ -80,8 +80,8 @@ public class Monster extends Obstacle{
 			}
 		}).start();
     }
-    private void monsterhit(Player player) {
-    	observer.monsterhit(player, this);
+    private void monsterhit(Player player, BackgroundMap backgroundMap) {
+    	observer.monsterhit(player, this, backgroundMap);
     }
 	
 }

@@ -51,13 +51,23 @@ public class ObstacleObserver {
 	}
 }
 }
-	public void monsterhit(Player player, Obstacle obstacle) {
+	public void monsterhit(Player player, Obstacle obstacle, BackgroundMap backgroundMap) {
 	    if(obstacle.collideRec(player, obstacle.getX(), obstacle.getY())) {
 	    	 //충돌이 나면
 	    	if(player.getX() < obstacle.getX()){//플레이어의 x가 더 작으면    			    		
 	    		player.hit(obstacle);    	    
 	    	}else if(player.getX() > obstacle.getX()) {	    		 
-	    		player.hit(obstacle);   
+	    		player.hit(obstacle);
+	    		try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	    		player.setVisible(false);
+	    		obstacle.setVisible(false);
+	    		backgroundMap.setStageNum(7);
+	    		backgroundMap.changeStage();
 	    	}
 	    }
 	   

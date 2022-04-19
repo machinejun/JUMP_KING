@@ -25,7 +25,7 @@ public abstract class Obstacle extends JLabel{
 
 
 	public boolean collideRec(Player player, int x, int y) {
-		int Px = player.getX() + (player.getWidth()/2);
+		int Px = player.getX() + (player.getWidth()/2);   //플레이어의 x좌표값 + 플레이어의 크기의 2/1
 		int Py = player.getY() + (player.getHeight()/2);
 		
 		int Ox = x + (this.getWidth()/2);

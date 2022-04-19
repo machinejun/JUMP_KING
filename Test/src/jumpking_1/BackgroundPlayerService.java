@@ -30,8 +30,8 @@ public class BackgroundPlayerService implements Runnable {
 		this.backgroundMap = backgroundMap;
 		try {
 			imageOP = ImageIO.read(new File("images/opbg.png"));
-			image1 = ImageIO.read(new File("images/stage1bg.png"));	//1번맵
-			image2 = ImageIO.read(new File("images/stage2bg.png")); // 2번 맵
+			image1 = ImageIO.read(new File("images/stage1bg.png"));	// 1번맵
+			image2 = ImageIO.read(new File("images/stage2bg.png")); // 2번맵
 			image3 = ImageIO.read(new File("images/stage3bg.png")); // 3번맵
 			image4 = ImageIO.read(new File("images/stage4bg.png")); // 4번맵
 			image5 = ImageIO.read(new File("images/stage5bg.png")); // 4번맵
@@ -145,10 +145,10 @@ public class BackgroundPlayerService implements Runnable {
             
             
             if (RightCheck.contains(Color.red)) {
-            	player.setRightWallcrash(true);
-            	player.setRight(false);
+            	player.setRightWallcrash(true); // 충돌이 일어나면서
+            	player.setRight(false);			//오른쪽으로 가는걸 막는다
             }else {
-            	player.setRightWallcrash(false);
+            	player.setRightWallcrash(false);//아니라면 충돌이 안일어난다
             }
             
             // 왼쪽 충돌
@@ -172,7 +172,7 @@ public class BackgroundPlayerService implements Runnable {
             TopCheck.add(rightTopColor);
             TopCheck.add(CenterTopColor);
         
-            if ((TopCheck.contains(Color.red)) && CenterFootColor.getRGB() == Color.white.getRGB()){
+            if ((TopCheck.contains(Color.red)) && CenterFootColor.getRGB() == Color.white.getRGB()){//top이 빨간색이고 foot가 하얀색이면
             	if(player.isJump()) player.drop();
             }
             
